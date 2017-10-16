@@ -10,6 +10,13 @@ Module GMM
 		lon::Float64
 		VS30::Float64
 	end
+	## Output PGA data point after GMPE calculations
+	mutable struct gmm_point_pga
+		lat::Float64
+		lon::Float64
+		r_rup::Float64
+		g::Float64 #Acceleration of gravity in percent rounded to ggg.gg
+	end
 	## earthquake location data
 	mutable struct earthquake
 		lat::Float64
