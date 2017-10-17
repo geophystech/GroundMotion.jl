@@ -1,6 +1,8 @@
 # gmm.jl
 The ground motion evaluation module
 
+**WORK IN PROGRESS**
+
 ## How to get VS30 grid
 
 1. Download GMT grd file for Global VS30 data on [USGS site](https://earthquake.usgs.gov/data/vs30/)
