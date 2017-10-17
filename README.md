@@ -6,7 +6,7 @@ The ground motion evaluation module
 ## How to get VS30 grid
 
 1. Download GMT grd file from [USGS Vs30 Models and Data page](https://earthquake.usgs.gov/data/vs30/)
-2. Unzip it. ``. It take around 2,7G disk space for one file: 
+2. Unzip it. It take around 2,7G disk space for one file: 
 ```
 unzip global_vs30_grd.zip
 ...
