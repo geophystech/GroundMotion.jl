@@ -22,13 +22,20 @@ cat test_sea.txt |wc -l
    14641
 ```
 
+## Earthquake location data
+
+Lets define lat(wgs84),lon(wgs84),depth(km),Ml,Mw:
+```
+
+```
+
 ## AS2008 GMPE Model
 
 Abrahamson, Norman, and Walter Silva. "Summary of the Abrahamson & Silva NGA ground-motion relations." Earthquake spectra 24.1 (2008): 67-97.
 
 **The variables that always zero for current version:**
 
-`a12*Frv`, `a13*Fnm`, `a15*Fas`, `Fhw*f4(Rjb, Rrup, Rx, W, S, Ztor, Mw)`, `f6(Ztor)`, `f10(Z1.0, Vs30)0`.
+`a12*Frv`, `a13*Fnm`, `a15*Fas`, `Fhw*f4(Rjb,Rrup,Rx,W,S,Ztor,Mw)`, `f6(Ztor)`, `f10(Z1.0, Vs30)`.
 
 Actually they are not presented at code.
 
