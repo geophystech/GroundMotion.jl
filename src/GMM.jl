@@ -96,12 +96,13 @@ Module GMM
             "t6=",t6," ")
     info("DEBUG pring")
     println(" vs30 ", " r_rup ", " f1 "," f8 ",
-            " pga1100 "," f5 ")
+            " pga1100 "," f5 ", "g ")
     # modeling
+    g = Array{Float64}(0)
     for i=1:vs30_row_num
       # rrup
       current_point = LatLon(grid[i].lat,grid[i].lon)
-      r_rup = sqrt((distance(epicenter, current_point)/1000)^2 + eq.depth^2)
+      r_rup = sqrt((distance(current_point,epicenter)/1000)^2 + eq.depth^2)
       # F1
       if magnitude <= config.c1
         f1 = config.a1 + config.a4 * (magnitude - config.c1) +
@@ -135,9 +136,11 @@ Module GMM
         f5 = (config.a10 + config.b * config.n) * 
           log(config.v1 / config.vlin)
       end
+      g = push!(g, round((exp(f1 + f5 + f8) * 100),2))
       # debug
-      println(hcat(grid[i].vs30,r_rup,f1,f8,pga1100,f5))
+      println(hcat(grid[i].vs30,r_rup,f1,f8,pga1100,f5,g[i]))
     end
+    g
   end
 
 

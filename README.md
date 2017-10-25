@@ -22,4 +22,24 @@ cat test_sea.txt |wc -l
    14641
 ```
 
+## AS2008 GMPE Model
 
+Abrahamson, Norman, and Walter Silva. "Summary of the Abrahamson & Silva NGA ground-motion relations." Earthquake spectra 24.1 (2008): 67-97.
+
+**The variables that always zero for current version:**
+
+`a12 * Frv = 0`, `a13 * Fnm = 0`, `a15 * Fas = 0`, `Fhw * f4(Rjb, Rrup, Rx, W, S, Ztor, Mw) = 0`, `f6(Ztor) = 0`, `f10(Z1.0, Vs30) = 0`.
+
+Actually they are not presented at code.
+
+Short example:
+```julia
+# init model parameters
+include("GroundMoution.jl/examples/as2008.conf")
+# load vs30 grid
+grid = read_vs30_file("Downloads/web/testvs30.txt")
+# set earthquake location
+eq = Earthquake(143.04,51.92,13,6)
+# run AS2008 modeling
+gmpe_as2008(eq,grid,config_as2008,0.1)
+```
