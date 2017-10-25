@@ -28,7 +28,7 @@ Abrahamson, Norman, and Walter Silva. "Summary of the Abrahamson & Silva NGA gro
 
 **The variables that always zero for current version:**
 
-`a12 * Frv = 0`, `a13 * Fnm = 0`, `a15 * Fas = 0`, `Fhw * f4(Rjb, Rrup, Rx, W, S, Ztor, Mw) = 0`, `f6(Ztor) = 0`, `f10(Z1.0, Vs30) = 0`.
+`a12*Frv`, `a13*Fnm`, `a15*Fas`, `Fhw*f4(Rjb, Rrup, Rx, W, S, Ztor, Mw)`, `f6(Ztor)`, `f10(Z1.0, Vs30)0`.
 
 Actually they are not presented at code.
 
