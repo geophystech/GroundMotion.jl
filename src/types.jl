@@ -1,10 +1,28 @@
 ## VS30 data point
+"""
+Mutable type for fill vs30 grid (Array).
+
+  Point_vs30(lon,lat,vs30).
+
+Latitude and longitude assumes degrees for WGS84 ellipsoid. All fields are ::Float64.
+"""
 mutable struct Point_vs30
   lon::Float64
   lat::Float64
   vs30::Float64
 end
 ## Output PGA data point after GMPE calculations
+"""
+Mutable type for output PGA data from GMPE modeling funtions
+
+  Fields:
+
+  lon   :: Float64
+  lat   :: Float64
+  r_rup :: Float64
+  g     :: Float64 # Acceleration of gravity in percent rounded to ggg.gg
+
+"""
 mutable struct Point_gmpe_out
   lon::Float64
   lat::Float64
@@ -13,17 +31,11 @@ mutable struct Point_gmpe_out
 end
 ## earthquake location data
 """
-Earthquake(lat,lon,depth,local_mag,moment_mag)
+Mutable type for earthquake location data.
 
-Latitude and longitude assumes degrees for WGS84 ellipsoid. Mw=0 in case of moment magnitude is not specified.
+  Earthquake(lat,lon,depth,local_mag,moment_mag)
 
-Fields:
-
-lon        :: Float64
-lat        :: Float64
-depth      :: Float64
-local_mag  :: Float64
-moment_mag :: Float64
+Latitude and longitude assumes degrees for WGS84 ellipsoid. Mw=0 in case of moment magnitude is not specified. All fields are ::Float64.
 """
 mutable struct Earthquake
   lon::Float64
@@ -51,16 +63,4 @@ mutable struct Params_as2008
   vlin::Float64
   v1::Float64
   vs30_1100::Float64
-end
-## AS2008 GMPE data point
-mutable struct Point_as2008
-  lon::Float64
-  lat::Float64
-  vs30::Float64
-  r_rup::Float64
-  f1::Float64
-  f5::Float64
-  f8::Float64
-  pga1100::Float64
-  g::Float64 # Acceleration of gravity in fractions
 end
