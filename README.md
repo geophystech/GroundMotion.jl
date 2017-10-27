@@ -45,14 +45,14 @@ writedlm("Downloads/xyz.txt", B) # where B is N×3 Array{Float64,2}
 
 ## Earthquake location data
 
-Lets define lat(wgs84),lon(wgs84),depth(km),Ml,Mw:
+Lets define lat,lon,depth,Ml,Mw:
 ```
 eq = Earthquake(143.04,51.92,13,6,5.8)
 # OR
 eq = Earthquake(143.04,51.92,13,6)
 ```
 
-Mw usually not ready right after earthquake. Mw=0 in case of moment magnitude is not specified. All gmpe models uses Mw if it is or Ml otherwise.
+Latitude and longitude assumes degrees for WGS84 ellipsoid. Depth in km. Mw usually not ready right after earthquake. Mw=0 in case of moment magnitude is not specified. All gmpe models uses Mw if it is or Ml otherwise.
 
 ## AS2008 GMPE Model
 
