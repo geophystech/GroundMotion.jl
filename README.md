@@ -1,4 +1,4 @@
-# gmm.jl
+# GroundMoution.jl
 The ground motion evaluation module
 
 **WORK IN PROGRESS**
@@ -38,7 +38,7 @@ B = convert_to_float_array(A)
 typeof(B)
 #--> Array{Float64,2}
 ```
-Use `Base.writedlm` to write XYZ (lat,lon,g) data to text file:
+Use `Base.writedlm` to write XYZ (lon,lat,g) data to text file:
 ```
 writedlm("Downloads/xyz.txt", B) # where B is N×3 Array{Float64,2}
 ```
