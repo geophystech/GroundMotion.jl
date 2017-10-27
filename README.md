@@ -45,7 +45,7 @@ writedlm("Downloads/xyz.txt", B) # where B is N×3 Array{Float64,2}
 
 ## Earthquake location data
 
-Lets define lat,lon,depth,Ml,Mw:
+Lets define `lat`,`lon`,`depth`,`Ml`,`Mw`:
 ```
 eq = Earthquake(143.04,51.92,13,6,5.8)
 # OR
