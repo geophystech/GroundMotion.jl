@@ -26,7 +26,6 @@ Mutable type for output PGA data from GMPE modeling funtions
 mutable struct Point_gmpe_out
   lon::Float64
   lat::Float64
-  r_rup::Float64
   g::Float64 #Acceleration of gravity in percent rounded to ggg.gg
 end
 ## earthquake location data

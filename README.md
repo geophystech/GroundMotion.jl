@@ -22,12 +22,37 @@ cat test_sea.txt |wc -l
    14641
 ```
 
+## Read and Write data grids
+
+Use `read_vs30_file` to read data from vs30 file:
+```
+grid = read_vs30_file("Downloads/web/somevs30.txt")
+```
+After some `gpmpe_*` function done, you will get `Array{Point_gmpe_out,N}`. Use `convert_to_float_array` to convert `Array{Point_gmpe_out,N}` to `Array{Float64,N}`:
+```
+typeof(A)
+#--> Array{GroundMoution.Point_gmpe_out,1}
+length(A)
+#--> 17
+B = convert_to_float_array(A)
+typeof(B)
+#--> Array{Float64,2}
+```
+Use `Base.writedlm` to write XYZ (lat,lon,g) data to text file:
+```
+writedlm("Downloads/xyz.txt", B) # where B is N×3 Array{Float64,2}
+```
+
 ## Earthquake location data
 
 Lets define lat(wgs84),lon(wgs84),depth(km),Ml,Mw:
 ```
-
+eq = Earthquake(143.04,51.92,13,6,5.8)
+# OR
+eq = Earthquake(143.04,51.92,13,6)
 ```
+
+Mw usually not ready right after earthquake. Mw=0 in case of moment magnitude is not specified. All gmpe models uses Mw if it is or Ml otherwise.
 
 ## AS2008 GMPE Model
 

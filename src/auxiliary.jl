@@ -17,12 +17,11 @@ convert_to_float_array(B::Array{T,N})
   Convert 1-d array of custom type to Array{Float64}(N,X)
 """
 function convert_to_float_array(B::Array{Point_gmpe_out})
-  A = Array{Float64}(length(B),4)
+  A = Array{Float64}(length(B),3)
   for i=1:length(B)
    A[i,1] = B[i].lon
    A[i,2] = B[i].lat
-   A[i,3] = B[i].r_rup
-   A[i,4] = B[i].g
+   A[i,3] = B[i].g
   end
   return A
 end

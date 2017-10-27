@@ -61,7 +61,7 @@ function gmpe_as2008(eq::Earthquake,grid::Array{Point_vs30},config::Params_as200
     end
     g = round((exp(f1 + f5 + f8) * 100),2)
     if g >= min_pga
-      output_data = push!(output_data, Point_gmpe_out(grid[i].lon,grid[i].lat,r_rup,g))
+      output_data = push!(output_data, Point_gmpe_out(grid[i].lon,grid[i].lat,g))
     end
     # debug
     #println(hcat(grid[i].vs30,r_rup,f1,f8,pga1100,f5,g[i]))
