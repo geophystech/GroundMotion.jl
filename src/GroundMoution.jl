@@ -11,6 +11,7 @@ module GroundMoution
     Point_gmpe_out,
     Earthquake,
     Params_as2008,
+    Params_simidorikawa1999,
     # functions
     read_vs30_file,
     convert_to_float_array,
