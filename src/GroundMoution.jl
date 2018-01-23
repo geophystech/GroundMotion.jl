@@ -8,14 +8,14 @@ module GroundMoution
   export
     # types
     Point_vs30,
-    Point_gmpe_out,
+    Point_pga_out,
     Earthquake,
     Params_as2008,
     Params_simidorikawa1999,
     # functions
     read_vs30_file,
     convert_to_float_array,
-    gmpe_as2008
+    pga_as2008
 
   # Types
   include("types.jl")

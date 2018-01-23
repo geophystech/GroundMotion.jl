@@ -9,14 +9,14 @@ function read_vs30_file(filename::String)
   return B
 end
 
-## convert Array{Point_gmpe_out}(N,1) array to Array{Float64}(N,4)
+## convert Array{Point_pga_out}(N,1) array to Array{Float64}(N,4)
 """
 convert_to_float_array(B::Array{T,N})
-  where T is Point_gmpe_out, Point_vs30
+  where T is Point_{pga,pgv,pgd}_out, Point_vs30
 
   Convert 1-d array of custom type to Array{Float64}(N,X)
 """
-function convert_to_float_array(B::Array{Point_gmpe_out})
+function convert_to_float_array(B::Array{Point_pga_out})
   A = Array{Float64}(length(B),3)
   for i=1:length(B)
    A[i,1] = B[i].lon

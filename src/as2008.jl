@@ -1,5 +1,5 @@
 ## AS2008 PGA modeling
-function gmpe_as2008(eq::Earthquake,grid::Array{Point_vs30},config::Params_as2008,min_pga::Number=0)
+function pga_as2008(eq::Earthquake,grid::Array{Point_vs30},config::Params_as2008,min_pga::Number=0)
   vs30_row_num = length(grid[:,1])
   eq.moment_mag == 0 ? magnitude = eq.local_mag : magnitude = eq.moment_mag
   epicenter = LatLon(eq.lat, eq.lon)
@@ -21,7 +21,7 @@ function gmpe_as2008(eq::Earthquake,grid::Array{Point_vs30},config::Params_as200
   #println(" vs30 ", " r_rup ", " f1 "," f8 ",
   #        " pga1100 "," f5 ", "g ")
   # modeling
-  output_data = Array{Point_gmpe_out}(0)
+  output_data = Array{Point_pga_out}(0)
   for i=1:vs30_row_num
     # rrup
     current_point = LatLon(grid[i].lat,grid[i].lon)
@@ -61,7 +61,7 @@ function gmpe_as2008(eq::Earthquake,grid::Array{Point_vs30},config::Params_as200
     end
     g = round((exp(f1 + f5 + f8) * 100),2)
     if g >= min_pga
-      output_data = push!(output_data, Point_gmpe_out(grid[i].lon,grid[i].lat,g))
+      output_data = push!(output_data, Point_pga_out(grid[i].lon,grid[i].lat,g))
     end
     # debug
     #println(hcat(grid[i].vs30,r_rup,f1,f8,pga1100,f5,g[i]))

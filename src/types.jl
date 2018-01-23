@@ -24,7 +24,7 @@ Mutable type for output PGA data from GMPE modeling funtions
 Latitude and longitude assumes degrees for WGS84 ellipsoid. r_rup in km.
 g is Acceleration of gravity in percent rounded to ggg.gg.
 """
-mutable struct Point_gmpe_out
+mutable struct Point_pga_out
   lon::Float64
   lat::Float64
   g::Float64 #Acceleration of gravity in percent rounded to ggg.gg
