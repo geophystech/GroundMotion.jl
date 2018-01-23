@@ -1,3 +1,20 @@
+## LICENSE
+##   Copyright 2018 GEOPHYSTECH LLC
+##
+##   Licensed under the Apache License, Version 2.0 (the "License");
+##   you may not use this file except in compliance with the License.
+##   You may obtain a copy of the License at
+##
+##       http://www.apache.org/licenses/LICENSE-2.0
+##
+##   Unless required by applicable law or agreed to in writing, software
+##   distributed under the License is distributed on an "AS IS" BASIS,
+##   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+##   See the License for the specific language governing permissions and
+##   limitations under the License.
+
+## initial release by Andrey Stepnov a.stepnov@geophsytech.ru
+
 ## AS2008 PGA modeling
 function pga_as2008(eq::Earthquake,grid::Array{Point_vs30},config::Params_as2008,min_pga::Number=0)
   vs30_row_num = length(grid[:,1])
