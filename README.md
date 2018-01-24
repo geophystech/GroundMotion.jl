@@ -11,13 +11,13 @@ Pkg.add("Geodesy")
 
 ## Basic principles
 
-The names of GMPE's function had set by type of returned values:
+GMPE's functions named by type of returned values: `{pga/pgv/pgd}_{Name_of_gmpe}`. 
 
-`{pga/pgv/pgd}_{Name_of_gmpe}`. For example: `pga_as2008`, where `pga` is type of ground motion and `as2008` is AS2008 GMPE Model. The same logic for `PGV,PGD`.
+For example: `pga_as2008`, where `pga` is type of ground motion and `as2008` is AS2008 GMPE Model. The same logic for `PGV,PGD`.
 
 Each GMPE function has at least 2 methods: for calculation on the VS30 grid and simulation (for plotting etc). The module has custom types for store output grid data (PGA,PGV,PGD).
 
-For example function `pga_as2008` with parameters
+For example: function `pga_as2008` with parameters
 ```julia
 pga_as2008(eq::Earthquake,
            grid::Array{Point_vs30,N},
