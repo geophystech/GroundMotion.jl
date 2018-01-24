@@ -18,7 +18,7 @@ The names of GMPE's function had set by type of returned values:
 Each GMPE function has at least 2 methods: for calculation on the VS30 grid and simulation (for plotting etc). The module has custom types for store output grid data (PGA,PGV,PGD).
 
 For example function `pga_as2008` with parameters
-```juia
+```julia
 pga_as2008(eq::Earthquake,
            grid::Array{Point_vs30,N},
            config_as2008::Params_as2008,
