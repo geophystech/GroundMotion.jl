@@ -32,12 +32,15 @@ module GroundMoution
     # functions
     read_vs30_file,
     convert_to_float_array,
-    pga_as2008
+    pga_as2008,
+    pga_simidorikawa1999
 
   # Types
   include("types.jl")
-  # AS2008 PGA modeling
+  # AS2008 GMPE modeling
   include("as2008.jl")
+  # Si-Midorikawa 1999 GMPE modeling
+  include("simidorikawa1999.jl")
   # read/write functions
   include("auxiliary.jl")
 

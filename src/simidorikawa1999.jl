@@ -21,9 +21,10 @@ function pga_simidorikawa1999(eq::Earthquake,grid::Array{Point_vs30},config::Par
   eq.moment_mag == 0 ? magnitude = eq.local_mag : magnitude = eq.moment_mag
   epicenter = LatLon(eq.lat, eq.lon)
   
+  # define g_global
+  g_global = 9.81
   # define \sum{d_i S_i}
-  sum_di_si = config.d1*config.S1 + 
-                config.d2*config.S2 + config.d3*config.S3
+  sum_di_si = config.d1*config.S1 + config.d2*config.S2 + config.d3*config.S3
   # define b = aMw + hD + \sum{d_i S_i} +e
   b = config.a*magnitude + config.h + sum_di_si + config.e_
   # define c
@@ -38,16 +39,25 @@ function pga_simidorikawa1999(eq::Earthquake,grid::Array{Point_vs30},config::Par
     current_point = LatLon(grid[i].lat,grid[i].lon)
     r_rup = sqrt((distance(current_point,epicenter)/1000)^2 + eq.depth^2)
     
+    # \logARA for VS30
+    log_ARA = 1.35 - 0.47*log10(grid[i].vs30)
+
     # A in cm/s^2
-    A = b - log10(r_rup + c)
-    
-    g = round((exp(f1 + f5 + f8) * 100),2)
+    if eq.depth <= 30
+      A = 10^(b - log10(r_rup + c) - config.k*r_rup + log_ARA)
+    else
+      A = 10^(b + 0.6*log10(1.7*eq.depth + c) - 
+              1.6*log10(r_rup + c) - config.k*r_rup + log_ARA)
+    end
+
+    g = round(((A/100)/g_global * 100),2)
     if g >= min_pga
       output_data = push!(output_data, Point_pga_out(grid[i].lon,grid[i].lat,g))
     end
     # debug
-    #println(hcat(grid[i].vs30,r_rup,f1,f8,pga1100,f5,g[i]))
+    println(hcat(grid[i].vs30,r_rup,log_ARA,A,g))
   end
   
   return output_data
 end
+
