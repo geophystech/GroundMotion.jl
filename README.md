@@ -11,7 +11,7 @@ Pkg.add("Geodesy")
 
 ## Basic principles
 
-At the names of GMPE functions specified type of returned values: `{pga/pgv/pgd}_{Name_of_gmpe}`. 
+The names of GMPE functions specified type of returned values: `{pga/pgv/pgd}_{Name_of_gmpe}`. 
 
 For example: `pga_as2008`, where `pga` is type of ground motion and `as2008` is AS2008 GMPE Model. The same logic for `PGV,PGD`.
 
