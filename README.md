@@ -13,7 +13,7 @@ Pkg.add("Geodesy")
 
 The names of GMPE's function had set by type of returned values:
 
-`{pga/pgv/pgd}_{Name_of_gmpe}`. For example: pga_as2008, where `pga` is type of ground motion and `as2008` is AS2008 GMPE Model. The same logic for PGV,PGD.
+`{pga/pgv/pgd}_{Name_of_gmpe}`. For example: `pga_as2008`, where `pga` is type of ground motion and `as2008` is AS2008 GMPE Model. The same logic for `PGV,PGD`.
 
 Each GMPE function has at least 2 methods: for calculation on the VS30 grid and simulation (for plotting etc). The module has custom types for store output grid data (PGA,PGV,PGD).
 
@@ -24,7 +24,7 @@ pga_as2008(eq::Earthquake,
            config_as2008::Params_as2008,
            min_pga::Number)
 ```
-will return  Array{Point_pga_out,N} with points where g > min_pga (g is Acceleration of gravity in percent rounded to ggg.gg)
+will return  `Array{Point_pga_out,N}` with points where `g > min_pga` (`g` is Acceleration of gravity in percent rounded to `ggg.gg`)
 
 and for
 ```julia
@@ -33,7 +33,7 @@ pga_as2008(eq::Earthquake,
            VS30::Number=350,
            distance::Int64=1000)
 ```
-Output will be Array{Float64,1} with 1:distance values of g (also rounded to ggg.gg).
+Output will be `Array{Float64,1}` with `1:distance` values of `g` (also rounded to `ggg.gg`).
 
 ## Short example:
 ```julia
