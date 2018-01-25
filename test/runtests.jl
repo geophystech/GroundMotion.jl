@@ -1,7 +1,4 @@
-#include("test_auxiliary.jl")
-
 using Base.Test
 
-@test 1 == 1
+include("test_auxiliary.jl")
 
-@test 2 == 1
