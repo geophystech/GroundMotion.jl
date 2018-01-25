@@ -110,7 +110,7 @@ function pga_as2008(eq::Earthquake,grid::Array{Point_vs30},config::Params_as2008
 end
 
 ## AS2008 PGA modeling for PLOTTING
-function pga_as2008(eq::Earthquake,config::Params_as2008,VS30::Number=350,distance::Int64=1000)
+function pga_as2008(eq::Earthquake,config::Params_as2008,VS30::Number=350,distance::Number=1000)
   eq.moment_mag == 0 ? magnitude = eq.local_mag : magnitude = eq.moment_mag
   # define t6
   if magnitude < 5.5

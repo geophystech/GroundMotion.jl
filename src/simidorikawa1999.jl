@@ -79,7 +79,7 @@ function pga_simidorikawa1999(eq::Earthquake,grid::Array{Point_vs30},config::Par
 end
 
 ## Si-Midorikawa (1999) PGA modeling for PLOTTING
-function pga_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,VS30::Number=350,distance::Int64=1000)
+function pga_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,VS30::Number=350,distance::Number=1000)
   #vs30_row_num = length(grid[:,1])
   eq.moment_mag == 0 ? magnitude = eq.local_mag : magnitude = eq.moment_mag
   # define g_global
