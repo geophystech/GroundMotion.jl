@@ -18,6 +18,7 @@ module GroundMotion
   # The distance() function is used, see https://github.com/JuliaGeo/Geodesy.jl for further read
   using 
     Geodesy
+
   export
     # types
     Point_vs30,
@@ -30,6 +31,7 @@ module GroundMotion
     convert_to_float_array,
     pga_as2008,
     pga_simidorikawa1999
+  
   # Types
   include("types.jl")
   # AS2008 GMPE modeling
