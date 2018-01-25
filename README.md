@@ -7,7 +7,7 @@ Pkg.clone("git@github.com:geophystech/GroundMotion.jl.git")
 using GroundMotion
 ```
 
-**WORK IN PROGRESS**
+**WORK IN PROGRESS!**
 
 ## Basic principles
 
