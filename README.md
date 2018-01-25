@@ -1,6 +1,12 @@
 # GroundMotion.jl
 The ground motion evaluation module
 
+Install:
+```julia
+Pkg.clone("git@github.com:geophystech/GroundMotion.jl.git")
+using GroundMotion
+```
+
 **WORK IN PROGRESS**
 
 ## Basic principles
