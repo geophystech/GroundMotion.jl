@@ -98,16 +98,24 @@ eq = Earthquake(143.04,51.92,13,6,5.8)
 eq = Earthquake(143.04,51.92,13,6)
 ```
 
-Latitude and longitude assumes degrees for WGS84 ellipsoid. Depth in km. Mw usually not ready right after earthquake. Mw=0 in case of moment magnitude is not specified. All gmpe models uses Mw if it is or Ml otherwise.
+Latitude and longitude assumes degrees for WGS84 ellipsoid. Depth in km. `Mw` usually not ready right after earthquake. `Mw=0` in case of moment magnitude is not specified. All gmpe models uses `Mw` if it is or `Ml` otherwise.
 
 ## AS2008 GMPE Model
 
 Abrahamson, Norman, and Walter Silva. "Summary of the Abrahamson & Silva NGA ground-motion relations." Earthquake spectra 24.1 (2008): 67-97.
 
 ### PGA:
-```
-pga_as2008(eq::Earthquake,grid::Array{Point_vs30,N},config_as2008::Params_as2008,min_pga::Number)
-pga_as2008(eq::Earthquake,config::Params_as2008,VS30::Number=350,distance::Int64=1000)
+```julia
+## ON GRID
+pga_as2008(eq::Earthquake,
+           grid::Array{Point_vs30,N},
+           config_as2008::Params_as2008,
+           min_pga::Number)
+## Simulation
+pga_as2008(eq::Earthquake,
+           config::Params_as2008,
+           VS30::Number=350,
+           distance::Int64=1000)
 ```
 See `examples/as2008.conf` for instance of AS2008 model parameters.
 
@@ -124,9 +132,17 @@ Actually they are not presented at code.
 2. Si H., Midorikawa S. New Attenuation Relationships for Peak Ground Acceleration and Velocity Considering Effects of Fault Type and Site Condition // Journal of Structural and Construction Engineering, A.I.J. 1999. V. 523. P. 63-70, (in Japanese with English abstract).
 
 ### PGA:
-```
-pga_simidorikawa1999(eq::Earthquake,grid::Array{Point_vs30,N},config::Params_simidorikawa1999,min_pga::Number)
-pga_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,VS30::Number=350,distance::Int64=1000)
+```julia
+## ON GRID
+pga_simidorikawa1999(eq::Earthquake,
+                     grid::Array{Point_vs30,N},
+                     config::Params_simidorikawa1999,
+                     min_pga::Number)
+## Simulation
+pga_simidorikawa1999(eq::Earthquake,
+                     config::Params_simidorikawa1999,
+                     VS30::Number=350,
+                     distance::Int64=1000)
 ```
 
 See `examples/si-midorikawa-1999.conf` for instance of Si-Midorikawa 1999 model parameters.
