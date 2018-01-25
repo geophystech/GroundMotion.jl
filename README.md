@@ -1,12 +1,6 @@
 # GroundMotion.jl
 The ground motion evaluation module
 
-## Install and solve dependencies
-
-```julia
-Pkg.add("Geodesy")
-```
-
 **WORK IN PROGRESS**
 
 ## Basic principles
