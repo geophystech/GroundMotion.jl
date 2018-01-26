@@ -1,7 +1,12 @@
 # GroundMotion.jl
-The ground motion evaluation module
+The ground motion evaluation module (earthquake seismology)
 
-Install:
+### Build Status
+
+[![Linux/macOS](https://travis-ci.org/Geophystech/GroundMotion.jl.svg?branch=master)](https://travis-ci.org/Geophystech/GroundMotion.jl) [![Windows](https://ci.appveyor.com/api/projects/status/github/Geophystech/GroundMotion.jl?svg=true)](https://ci.appveyor.com/project/Geophystech/GroundMotion-jl) [![Coverage](http://img.shields.io/coveralls/Geophystech/GroundMotion.jl.svg)](https://coveralls.io/r/Geophystech/GroundMotion.jl) 
+
+### Install
+
 ```julia
 Pkg.clone("git@github.com:geophystech/GroundMotion.jl.git")
 using GroundMotion
