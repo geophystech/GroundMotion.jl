@@ -3,7 +3,7 @@ The ground motion evaluation module (earthquake seismology)
 
 ### Build Status
 
-[![Linux/macOS](https://travis-ci.org/Geophystech/GroundMotion.jl.svg?branch=master)](https://travis-ci.org/Geophystech/GroundMotion.jl) [![Windows](https://ci.appveyor.com/api/projects/status/github/Geophystech/GroundMotion.jl?svg=true)](https://ci.appveyor.com/project/Geophystech/GroundMotion-jl) [![Coverage](http://img.shields.io/coveralls/Geophystech/GroundMotion.jl.svg)](https://coveralls.io/r/Geophystech/GroundMotion.jl) 
+[![Linux/macOS](https://travis-ci.org/geophystech/GroundMotion.jl.svg?branch=master)](https://travis-ci.org/geophystech/GroundMotion.jl) [![Windows](https://ci.appveyor.com/api/projects/status/github/Geophystech/GroundMotion.jl?svg=true)](https://ci.appveyor.com/project/Geophystech/GroundMotion-jl) [![Coverage](http://img.shields.io/coveralls/geophystech/GroundMotion.jl.svg)](https://coveralls.io/r/geophystech/GroundMotion.jl) 
 
 ### Install
 
