@@ -30,6 +30,10 @@ end
 @testset "AS2008 GMPE" begin
   # init model parameters
   include("../examples/as2008.conf")
+  # test at epicenter with VS=350
+  grid_1 = [Point_vs30(143.04,51.92,350)]
+  A = pga_as2008(eq,grid_1,config_as2008)
+  @test pga_as2008(eq,grid_1,config_as2008)[1].g == 13.54
   # run PGA modeling on grid without minpga
   A = pga_as2008(eq,grid,config_as2008)
   @test length(A) == TEST_GRID_SIZE
@@ -52,20 +56,28 @@ end
 @testset "Si-Midorikawa 1999 GMPE" begin
   # init model parameters
   include("../examples/si-midorikawa-1999.conf")
-  ## run PGA modeling on grid withoit minpga
+  ## test at epicenter on grid
+  grid_1 = [Point_vs30(143.04,51.92,350)]
+  @test pga_simidorikawa1999(eq,grid_1,config_simidorikawa1999_crustal)[1].g == 25.54
+  ## run PGA modeling on grid withoit minpga Depth <= 30
   S_c = pga_simidorikawa1999(eq,grid,config_simidorikawa1999_crustal)
   @test length(S_c) == TEST_GRID_SIZE
   @test round(sum([S_c[i].g for i=1:length(S_c)]),2) == 6.98
   S_intp = pga_simidorikawa1999(eq,grid,config_simidorikawa1999_interplate)
-  @test length(S_intp) == TEST_GRID_SIZE
+  @test length(S_intp) == TEST_GRID_SIZE 
   @test round(sum([S_intp[i].g for i=1:length(S_intp)]),2) == 8.38
   S_intra = pga_simidorikawa1999(eq,grid,config_simidorikawa1999_intraplate)
   @test length(S_intra) == TEST_GRID_SIZE
   @test round(sum([S_intra[i].g for i=1:length(S_intra)]),2) == 13.9
-  ## run PGA modeling on grid with minpga
+  ## run PGA modeling on grid with minpga Depth <= 30
   S_c = pga_simidorikawa1999(eq,grid,config_simidorikawa1999_crustal,0.34)
   @test length(S_c) == WITH_MINPGA
   @test round(sum([S_c[i].g for i=1:length(S_c)]),2) == 4.61
+  ## run PGA modeling on grid with minpga Depth > 30
+  eq_30 = Earthquake(143.04,51.92,35,6.0)
+  S_c = pga_simidorikawa1999(eq_30,grid,config_simidorikawa1999_crustal,0.15)
+  @test length(S_c) == WITH_MINPGA
+  @test round(sum([S_c[i].g for i=1:length(S_c)]),2) == 2.04
   ## run PGA modeling for plotting
   S_c = pga_simidorikawa1999(eq,config_simidorikawa1999_crustal)
   @test length(S_c) == SIMULATION_ARRAY_SIZE
