@@ -34,10 +34,15 @@ end
   A = pga_as2008(eq,grid,config_as2008)
   @test length(A) == TEST_GRID_SIZE
   @test round(sum([A[i].g for i=1:length(A)]),2) == 4.39
-  # run PGA modeling on grid without minpga
+  # run PGA modeling on grid with minpga
   A = pga_as2008(eq,grid,config_as2008,0.22)
   @test length(A) == WITH_MINPGA
   @test round(sum([A[i].g for i=1:length(A)]),2) == 2.86
+  # run PGA modeling with low magnitude
+  eq_4 = Earthquake(143.04,51.92,13,4)
+  A = pga_as2008(eq_4,grid,config_as2008)
+  @test length(A) == TEST_GRID_SIZE
+  @test round(sum([A[i].g for i=1:length(A)]),2) == 0.21
   # run PGA modeling for plotting
   A = pga_as2008(eq,config_as2008)
   @test length(A) == SIMULATION_ARRAY_SIZE
