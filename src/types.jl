@@ -33,18 +33,17 @@ end
 Mutable type for output PGA data from GMPE modeling funtions
 
   Fields:
-
+```
   lon   :: Float64 
   lat   :: Float64 
-  g     :: Float64 
-
-Latitude and longitude assumes degrees for WGS84 ellipsoid. r_rup in km.
-g is Acceleration of gravity in percent rounded to ggg.gg.
+  pga   :: Float64 
+```
+Latitude and longitude assumes degrees for WGS84 ellipsoid. `pga` is Acceleration of gravity (g) in percent rounded to ggg.gg.
 """
 mutable struct Point_pga_out
   lon::Float64
   lat::Float64
-  g::Float64 #Acceleration of gravity in percent rounded to ggg.gg
+  pga::Float64 #Acceleration of gravity in percent rounded to ggg.gg
 end
 ## earthquake location data
 """

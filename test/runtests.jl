@@ -34,19 +34,19 @@ end
   include("../examples/as2008.conf")
   # test at epicenter with M7.0, VS=350 
   grid_1 = [Point_vs30(143.04,51.92,350)]
-  @test pga_as2008(eq_7,config_as2008,grid_1)[1].g == 22.45
+  @test pga_as2008(eq_7,config_as2008,grid_1)[1].pga == 22.45
   # run PGA modeling on grid without minpga M6.0
   A = pga_as2008(eq_6,config_as2008,grid)
   @test length(A) == TEST_GRID_SIZE
-  @test round(sum([A[i].g for i=1:length(A)]),2) == 4.39
+  @test round(sum([A[i].pga for i=1:length(A)]),2) == 4.39
   # run PGA modeling on grid with minpga M6.0
   A = pga_as2008(eq_6,config_as2008,grid,0.22)
   @test length(A) == WITH_MINPGA
-  @test round(sum([A[i].g for i=1:length(A)]),2) == 2.86
+  @test round(sum([A[i].pga for i=1:length(A)]),2) == 2.86
   # run PGA modeling with M4.0
   A = pga_as2008(eq_4,config_as2008,grid)
   @test length(A) == TEST_GRID_SIZE
-  @test round(sum([A[i].g for i=1:length(A)]),2) == 0.21
+  @test round(sum([A[i].pga for i=1:length(A)]),2) == 0.21
   # run PGA modeling for plotting M6.0
   A = pga_as2008(eq_6,config_as2008)
   @test length(A) == SIMULATION_ARRAY_SIZE
@@ -60,26 +60,26 @@ end
   include("../examples/si-midorikawa-1999.conf")
   ## test at epicenter on grid M7.0
   grid_1 = [Point_vs30(143.04,51.92,350)]
-  @test pga_simidorikawa1999(eq_7,config_simidorikawa1999_crustal,grid_1)[1].g == 59.04
+  @test pga_simidorikawa1999(eq_7,config_simidorikawa1999_crustal,grid_1)[1].pga == 59.04
   ## run PGA modeling on grid withoit minpga Depth <= 30 M6.0
   S_c = pga_simidorikawa1999(eq_6,config_simidorikawa1999_crustal,grid)
   @test length(S_c) == TEST_GRID_SIZE
-  @test round(sum([S_c[i].g for i=1:length(S_c)]),2) == 6.98
+  @test round(sum([S_c[i].pga for i=1:length(S_c)]),2) == 6.98
   S_intp = pga_simidorikawa1999(eq_6,config_simidorikawa1999_interplate,grid)
   @test length(S_intp) == TEST_GRID_SIZE 
-  @test round(sum([S_intp[i].g for i=1:length(S_intp)]),2) == 8.38
+  @test round(sum([S_intp[i].pga for i=1:length(S_intp)]),2) == 8.38
   S_intra = pga_simidorikawa1999(eq_6,config_simidorikawa1999_intraplate,grid)
   @test length(S_intra) == TEST_GRID_SIZE
-  @test round(sum([S_intra[i].g for i=1:length(S_intra)]),2) == 13.9
+  @test round(sum([S_intra[i].pga for i=1:length(S_intra)]),2) == 13.9
   ## run PGA modeling on grid with minpga Depth <= 30 M6.0
   S_c = pga_simidorikawa1999(eq_6,config_simidorikawa1999_crustal,grid,0.34)
   @test length(S_c) == WITH_MINPGA
-  @test round(sum([S_c[i].g for i=1:length(S_c)]),2) == 4.61
+  @test round(sum([S_c[i].pga for i=1:length(S_c)]),2) == 4.61
   ## run PGA modeling on grid with minpga Depth > 30 M6.0
   eq_30 = Earthquake(143.04,51.92,35,6.0)
   S_c = pga_simidorikawa1999(eq_30,config_simidorikawa1999_crustal,grid,0.15)
   @test length(S_c) == WITH_MINPGA
-  @test round(sum([S_c[i].g for i=1:length(S_c)]),2) == 2.04
+  @test round(sum([S_c[i].pga for i=1:length(S_c)]),2) == 2.04
   ## run PGA modeling for plotting Depth <= 30 M6.0
   S_c = pga_simidorikawa1999(eq_6,config_simidorikawa1999_crustal)
   @test length(S_c) == SIMULATION_ARRAY_SIZE

@@ -22,7 +22,7 @@
 
 where `min_pga=0` by default
   
-Output will be 1-d `Array{Point_pga_out}` with points where `g > min_pga` (g is Acceleration of gravity in percent rounded to ggg.gg)
+Output will be 1-d `Array{Point_pga_out}` with points based on the input grid with `pga > min_pga` (pga is Acceleration of gravity (g) in percent rounded to ggg.gg)
 
 **PGA without grid**
   
@@ -30,7 +30,7 @@ Output will be 1-d `Array{Point_pga_out}` with points where `g > min_pga` (g is 
 
 where `VS30=30` [m/s^2], `distance=1000` [km] by default.
   
-Output will be 1-d `Array{Float64,1}` with `1:distance` values of `g` (that is Acceleration of gravity in percent rounded to ggg.gg)
+Output will be 1-d `Array{Float64,1}` with `1:distance` values of `pga` (that is Acceleration of gravity (g) in percent rounded to ggg.gg)
 
 **EXAMPLES:**
 ```  

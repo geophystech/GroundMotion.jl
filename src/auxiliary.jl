@@ -38,7 +38,7 @@ function convert_to_float_array(B::Array{Point_pga_out})
   for i=1:length(B)
    A[i,1] = B[i].lon
    A[i,2] = B[i].lat
-   A[i,3] = B[i].g
+   A[i,3] = B[i].pga
   end
   return A
 end
