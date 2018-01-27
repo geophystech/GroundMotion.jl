@@ -1,5 +1,5 @@
 ## LICENSE
-##   Copyright 2018 GEOPHYSTECH LLC
+##   Copyright (c) 2018 GEOPHYSTECH LLC
 ##
 ##   Licensed under the Apache License, Version 2.0 (the "License");
 ##   you may not use this file except in compliance with the License.
@@ -18,28 +18,32 @@
 """
 **PGA ON GRID**
 
-`pga_as2008(eq::Earthquake,grid::Array{Point_vs30,N},config_as2008::Params_as2008,min_pga::Number)` 
+`pga_as2008(eq::Earthquake,config_as2008::Params_as2008,grid::Array{Point_vs30},min_pga::Number)` 
 
 where `min_pga=0` by default
   
-Output will be `Array{Point_pga_out,N}` with points where `g > min_pga` (g is Acceleration of gravity in percent rounded to ggg.gg)
+Output will be 1-d `Array{Point_pga_out}` with points where `g > min_pga` (g is Acceleration of gravity in percent rounded to ggg.gg)
 
-**PGA FOR PLOTTING**
+**PGA without grid**
   
 `pga_as2008(eq::Earthquake,config::Params_as2008,VS30::Number=350,distance::Int64=1000)` 
 
 where `VS30=30` [m/s^2], `distance=1000` [km] by default.
   
-Output will be `Array{Float64,1}` with `1:distance` values of `g` (that is Acceleration of gravity in percent rounded to ggg.gg)
+Output will be 1-d `Array{Float64}` with `1:distance` values of `g` (that is Acceleration of gravity in percent rounded to ggg.gg)
 
 **EXAMPLES:**
 ```  
-pga_as2008(eq,grid,config_as2008,0.1) # for PGA on GRID
-pga_as2008(eq,config_as2008) # for PGA PLOTS
+pga_as2008(eq,config_as2008,grid) # for PGA on GRID
+pga_as2008(eq,config_as2008) # for without input grid
 ```
+
+**Model parameters**
+
+Please, see `examples/as-2008.conf`
 """
 ## AS2008 PGA modeling ON GRID
-function pga_as2008(eq::Earthquake,grid::Array{Point_vs30},config::Params_as2008,min_pga::Number=0)
+function pga_as2008(eq::Earthquake,config::Params_as2008,grid::Array{Point_vs30},min_pga::Number=0)
   vs30_row_num = length(grid[:,1])
   eq.moment_mag == 0 ? magnitude = eq.local_mag : magnitude = eq.moment_mag
   epicenter = LatLon(eq.lat, eq.lon)
@@ -51,15 +55,6 @@ function pga_as2008(eq::Earthquake,grid::Array{Point_vs30},config::Params_as2008
   else 
     t6 = 0.5
   end
-  # debug
-  #info("DEBUG pring")
-  #println("vs30_row_num=",vs30_row_num," ", 
-  #        "magnitude=",magnitude," ",
-  #        "epicenter=",epicenter," ",
-  #        "t6=",t6," ")
-  #info("DEBUG pring")
-  #println(" vs30 ", " r_rup ", " f1 "," f8 ",
-  #        " pga1100 "," f5 ", "g ")
   # modeling
   output_data = Array{Point_pga_out}(0)
   for i=1:vs30_row_num

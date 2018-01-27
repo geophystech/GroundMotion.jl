@@ -18,28 +18,32 @@
 """
 **PGA ON GRID**
 
-`pga_simidorikawa1999(eq::Earthquake,grid::Array{Point_vs30,N},config::Params_simidorikawa1999,min_pga::Number)` 
+`pga_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,grid::Array{Point_vs30},min_pga::Number)` 
 
 where `min_pga=0` by default
   
-Output will be `Array{Point_pga_out,N}` with points where `g > min_pga` (g is Acceleration of gravity in percent rounded to ggg.gg)
+Output will be 1-d `Array{Point_pga_out}` with points where `g > min_pga` (g is Acceleration of gravity in percent rounded to ggg.gg)
 
-**PGA FOR PLOTTING**
+**PGA without grid**
   
 `pga_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,VS30::Number=350,distance::Int64=1000)` 
 
 where `VS30=30` [m/s^2], `distance=1000` [km] by default.
   
-Output will be `Array{Float64,1}` with `1:distance` values of `g` (that is Acceleration of gravity in percent rounded to ggg.gg)
+Output will be 1-d `Array{Float64,1}` with `1:distance` values of `g` (that is Acceleration of gravity in percent rounded to ggg.gg)
 
 **EXAMPLES:**
 ```  
-pga_simidorikawa1999(eq,grid,config_simidorikawa1999_interplate,0.0) # for PGA on GRID
-pga_simidorikawa1999(eq,config_simidorikawa1999_intraplate) # for PGA PLOTS
+pga_simidorikawa1999(eq,config_simidorikawa1999_interplate,grid) # for PGA on GRID
+pga_simidorikawa1999(eq,config_simidorikawa1999_intraplate) # for PGA without input grid
 ```
+
+**Model parameters**
+
+Please, see `examples/si-midorikawa-1999.conf`
 """
 ## Si-Midorikawa (1999) PGA modeling ON GRID
-function pga_simidorikawa1999(eq::Earthquake,grid::Array{Point_vs30},config::Params_simidorikawa1999,min_pga::Number=0)
+function pga_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,grid::Array{Point_vs30},min_pga::Number=0)
   vs30_row_num = length(grid[:,1])
   eq.moment_mag == 0 ? magnitude = eq.local_mag : magnitude = eq.moment_mag
   epicenter = LatLon(eq.lat, eq.lon)
