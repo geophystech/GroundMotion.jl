@@ -16,44 +16,42 @@ Pkg.add("GroundMotion.jl")
 
 ## Basic principles
 
-The names of GMPE functions specified type of returned values: `{pga/pgv/pgd/psa}_{Name_of_gmpe}`. 
+The names of GMPE functions specified type of returned values: `{pga/pgv/pgd/psa}_{Name_of_gmpe_function}`. 
 
-For example: `pga_as2008`, where `pga` is type of ground motion and `as2008` is AS2008 GMPE Model. The same logic for `PGV,PGD,PSA`.
+For example: `pga_as2008`, where `pga` is return type of ground motion and `as2008` is AS2008 GMPE Model. The same logic for `pgv,pgd,psa`.
 
 Each GMPE function has at least 2 methods: for calculation based on input VS30-grid or without any grid.
 
 ### GRID case
 
-GMPE function for each grid's point calculates `{PGA/PGV/PGD/PSA}` value using latitude, longitude and VS30 [meters per second]. The output data has return in custom type where latitude and longitude are copy from input grid and `{PGA/PGV/PGD/PSA}` is calculated by function. 
+GMPE function for each grid's point calculates `{pga/pgv/pgd/psa}` value using latitude, longitude and VS30 [meters per second]. The output data has return in custom type where latitude and longitude are copy from input grid and `{pga/pgv/pgd/psa}` is calculated by function. 
 
 For example: function `pga_as2008` with parameters
 ```julia
 pga_as2008(eq::Earthquake,
-           grid::Array{Point_vs30,N},
            config_as2008::Params_as2008,
+           grid::Array{Point_vs30},
            min_pga::Number)
 ```
-will return 1-d `Array{Point_pga_out}` with points where `g > min_pga` (`g` is Acceleration of gravity in percent rounded to `ggg.gg`)
+return 1-d `Array{Point_pga_out}` with points based on input grid with `pga > min_pga` (`pga` is Acceleration of gravity (g) in percent rounded to `ggg.gg`)
 
 
 ### Without grid
 
+In case of without any grid GMPE functions return simple 1-d `Array{Float64}` with `{pga/pgv/pgd/psa}` data. Each `{pga/pgv/pgd/psa}` value in output array is from epicenter to `distance` with `1` [km] step perpendicularly to the epicenter.
 
-
-In case of without any grid GMPE functions return simple 1-d `Array{Float64}`.
-
-
-and for
+Example:
 ```julia
 pga_as2008(eq::Earthquake,
            config::Params_as2008,
            VS30::Number=350,
            distance::Int64=1000)
 ```
-Output will be `Array{Float64,1}` with `1:distance` values of `g` (also rounded to `ggg.gg`).
+output be `Array{Float64}` with `1:distance` values of `pga` (also rounded to `ggg.gg`).
 
 ## Short example:
 ```julia
+using GroundMotion
 # init model parameters
 include("GroundMoution.jl/examples/as2008.conf")
 # load vs30 grid
@@ -61,7 +59,7 @@ grid = read_vs30_file("Downloads/web/testvs30.txt")
 # set earthquake location
 eq = Earthquake(143.04,51.92,13,6)
 # run AS2008 PGA modeling on GRID
-out_grid = pga_as2008(eq,grid,config_as2008,0.1)
+out_grid = pga_as2008(eq,config_as2008,grid)
 # run AS2008 PGA FOR PLOTTING with VS30=30 [m/s^2], distance=1000 [km] by default.
 simulation = pga_as2008(eq,config_as2008)
 ```
@@ -101,9 +99,9 @@ B = convert_to_float_array(A)
 typeof(B)
 #--> Array{Float64,2}
 ```
-Use `Base.writedlm` to write XYZ (`lon`,`lat`,`g/v/d`) data to text file:
+Use `Base.writedlm` to write XYZ (`lon`,`lat`,`pga/pgv/pgd/psa`) data to text file:
 ```julia
-writedlm("Downloads/xyz.txt", B) # where B is N×3 Array{Float64,2}
+writedlm("Downloads/xyz.txt", B) # where B is N×3 Array{Float64}
 ```
 
 ## Earthquake location data
@@ -125,10 +123,10 @@ Abrahamson, Norman, and Walter Silva. "Summary of the Abrahamson & Silva NGA gro
 ```julia
 ## ON GRID
 pga_as2008(eq::Earthquake,
-           grid::Array{Point_vs30,N},
            config_as2008::Params_as2008,
+           grid::Array{Point_vs30,N},
            min_pga::Number)
-## Simulation
+## Without grid
 pga_as2008(eq::Earthquake,
            config::Params_as2008,
            VS30::Number=350,
@@ -152,10 +150,10 @@ Actually they are not presented at code.
 ```julia
 ## ON GRID
 pga_simidorikawa1999(eq::Earthquake,
-                     grid::Array{Point_vs30,N},
                      config::Params_simidorikawa1999,
+                     grid::Array{Point_vs30,N},
                      min_pga::Number)
-## Simulation
+## Without grid
 pga_simidorikawa1999(eq::Earthquake,
                      config::Params_simidorikawa1999,
                      VS30::Number=350,
@@ -166,7 +164,7 @@ See `examples/si-midorikawa-1999.conf` for instance of Si-Midorikawa 1999 model 
 
 ## LICENSE
 
-   Copyright 2018 GEOPHYSTECH LLC
+   Copyright (c) 2018 GEOPHYSTECH LLC
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
