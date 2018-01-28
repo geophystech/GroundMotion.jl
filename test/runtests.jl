@@ -6,89 +6,17 @@ WITH_MINPGA = 8
 SIMULATION_ARRAY_SIZE = 1000
 # load vs30 grid
 grid = read_vs30_file("testvs30.txt")
+grid_epicenter = [Point_vs30(143.04,51.92,350)]
 # set earthquake location
 eq_4 = Earthquake(143.04,51.92,13,4)
 eq_6 = Earthquake(143.04,51.92,13,6)
 eq_7 = Earthquake(143.04,51.92,13,7)
 
-@testset "GRID'S read/convert" begin
-  @test typeof(grid) == Array{GroundMotion.Point_vs30,1}
-  @test length(grid) == TEST_GRID_SIZE
-  # get PGA data grid and test it
-  include("../examples/as2008.conf")
-  pga_grid = pga_as2008(eq_6,config_as2008,grid)
-  @test typeof(pga_grid) == Array{GroundMotion.Point_pga_out,1}
-  # convert to float array
-  A = convert_to_float_array(grid)
-  @test typeof(A) == Array{Float64,2}
-  @test length(A) == 51
-  @test round(sum(A[:,3]),2) == 12400.0
-  A = convert_to_float_array(pga_grid)
-  @test typeof(A) == Array{Float64,2}
-  @test length(A) == 51
-  @test round(sum(A[:,3]),2) == 4.39
-end
+## Auxilary finctions tests
+include("test_auxiliary.jl")
 
-@testset "AS2008 GMPE" begin
-  # init model parameters
-  include("../examples/as2008.conf")
-  # test at epicenter with M7.0, VS=350 
-  grid_1 = [Point_vs30(143.04,51.92,350)]
-  @test pga_as2008(eq_7,config_as2008,grid_1)[1].pga == 22.45
-  # run PGA modeling on grid without minpga M6.0
-  A = pga_as2008(eq_6,config_as2008,grid)
-  @test length(A) == TEST_GRID_SIZE
-  @test round(sum([A[i].pga for i=1:length(A)]),2) == 4.39
-  # run PGA modeling on grid with minpga M6.0
-  A = pga_as2008(eq_6,config_as2008,grid,0.22)
-  @test length(A) == WITH_MINPGA
-  @test round(sum([A[i].pga for i=1:length(A)]),2) == 2.86
-  # run PGA modeling with M4.0
-  A = pga_as2008(eq_4,config_as2008,grid)
-  @test length(A) == TEST_GRID_SIZE
-  @test round(sum([A[i].pga for i=1:length(A)]),2) == 0.21
-  # run PGA modeling for plotting M6.0
-  A = pga_as2008(eq_6,config_as2008)
-  @test length(A) == SIMULATION_ARRAY_SIZE
-  @test round(sum(A),2) == 573.5
-  # run PGA Modeling M=7
-  pga_as2008(eq_7,config_as2008)[1] == 22.4
-end 
+## AS2008 GMPE tests
+include("test_as2008.jl")
 
-@testset "Si-Midorikawa 1999 GMPE" begin
-  # init model parameters
-  include("../examples/si-midorikawa-1999.conf")
-  ## test at epicenter on grid M7.0
-  grid_1 = [Point_vs30(143.04,51.92,350)]
-  @test pga_simidorikawa1999(eq_7,config_simidorikawa1999_crustal,grid_1)[1].pga == 59.04
-  ## run PGA modeling on grid withoit minpga Depth <= 30 M6.0
-  S_c = pga_simidorikawa1999(eq_6,config_simidorikawa1999_crustal,grid)
-  @test length(S_c) == TEST_GRID_SIZE
-  @test round(sum([S_c[i].pga for i=1:length(S_c)]),2) == 6.98
-  S_intp = pga_simidorikawa1999(eq_6,config_simidorikawa1999_interplate,grid)
-  @test length(S_intp) == TEST_GRID_SIZE 
-  @test round(sum([S_intp[i].pga for i=1:length(S_intp)]),2) == 8.38
-  S_intra = pga_simidorikawa1999(eq_6,config_simidorikawa1999_intraplate,grid)
-  @test length(S_intra) == TEST_GRID_SIZE
-  @test round(sum([S_intra[i].pga for i=1:length(S_intra)]),2) == 13.9
-  ## run PGA modeling on grid with minpga Depth <= 30 M6.0
-  S_c = pga_simidorikawa1999(eq_6,config_simidorikawa1999_crustal,grid,0.34)
-  @test length(S_c) == WITH_MINPGA
-  @test round(sum([S_c[i].pga for i=1:length(S_c)]),2) == 4.61
-  ## run PGA modeling on grid with minpga Depth > 30 M6.0
-  eq_30 = Earthquake(143.04,51.92,35,6.0)
-  S_c = pga_simidorikawa1999(eq_30,config_simidorikawa1999_crustal,grid,0.15)
-  @test length(S_c) == WITH_MINPGA
-  @test round(sum([S_c[i].pga for i=1:length(S_c)]),2) == 2.04
-  ## run PGA modeling for plotting Depth <= 30 M6.0
-  S_c = pga_simidorikawa1999(eq_6,config_simidorikawa1999_crustal)
-  @test length(S_c) == SIMULATION_ARRAY_SIZE
-  @test round(sum(S_c),2) == 1096.79
-  S_intp = pga_simidorikawa1999(eq_6,config_simidorikawa1999_interplate)
-  @test round(sum(S_intp),2) == 1318.74
-  S_intra = pga_simidorikawa1999(eq_6,config_simidorikawa1999_intraplate)
-  @test round(sum(S_intra),2) == 2188.89
-  ## run PGA modeling for plotting Depth > 30 M6.0
-  S_c = pga_simidorikawa1999(eq_30,config_simidorikawa1999_crustal)
-  @test round(sum(S_c),2) == 722.93
-end
+## Si-Midorikawa GMPE tests
+include("test_simidorikawa1999.jl")
