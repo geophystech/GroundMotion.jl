@@ -13,7 +13,7 @@
 ##   See the License for the specific language governing permissions and
 ##   limitations under the License.
 
-## initial release by Andrey Stepnov a.stepnov@geophsytech.ru
+## initial release by Andrey Stepnov, email: a.stepnov@geophsytech.ru
 
 ## VS30 data point
 """
@@ -28,7 +28,7 @@ mutable struct Point_vs30
   lat::Float64
   vs30::Float64
 end
-## Output PGA data point after GMPE calculations
+## Output PGA data point
 """
 Mutable type for output PGA data from GMPE modeling funtions
 
@@ -38,12 +38,46 @@ Mutable type for output PGA data from GMPE modeling funtions
   lat   :: Float64 
   pga   :: Float64 
 ```
-Latitude and longitude assumes degrees for WGS84 ellipsoid. `pga` is Acceleration of gravity (g) in percent rounded to ggg.gg.
+Latitude and longitude assumes degrees for WGS84 ellipsoid. `pga` is Acceleration of gravity in percent (%g) rounded to ggg.gg.
 """
 mutable struct Point_pga_out
   lon::Float64
   lat::Float64
-  pga::Float64 #Acceleration of gravity in percent rounded to ggg.gg
+  pga::Float64 #Acceleration of gravity  in percent (%g) rounded to ggg.gg
+end
+## Output PGV data point
+"""
+Mutable type for output PGV data from GMPE modeling funtions
+
+  Fields:
+```
+  lon   :: Float64 
+  lat   :: Float64 
+  pgv   :: Float64 
+```
+Latitude and longitude assumes degrees for WGS84 ellipsoid. `pgv` is [cm/s].
+"""
+mutable struct Point_pgv_out
+  lon::Float64
+  lat::Float64
+  pgv::Float64 #Acceleration of gravity in percent rounded to ggg.gg
+end
+## Output PSA data point
+"""
+Mutable type for output PSA data
+
+  Fields:
+```
+  lon   :: Float64 
+  lat   :: Float64 
+  psa   :: Float64 
+```
+Latitude and longitude assumes degrees for WGS84 ellipsoid. `psa` is damped pseudo-spectral acceleration (%g) in percent rounded to ggg.gg.
+"""
+mutable struct Point_psa_out
+  lon::Float64
+  lat::Float64
+  psa::Float64 # damped pseudo-spectral acceleration of gravity in percent rounded to ggg.gg (%g)
 end
 ## earthquake location data
 """

@@ -33,7 +33,7 @@ pga_as2008(eq::Earthquake,
            grid::Array{Point_vs30},
            min_pga::Number)
 ```
-return 1-d `Array{Point_pga_out}` with points based on input grid with `pga > min_pga` (`pga` is Acceleration of gravity (g) in percent rounded to `ggg.gg`)
+return 1-d `Array{Point_pga_out}` with points based on input grid with `pga > min_pga` (`pga` is Acceleration of gravity in percent (%g) rounded to `ggg.gg`)
 
 
 ### Without grid
@@ -165,6 +165,8 @@ pga_simidorikawa1999(eq::Earthquake,
 ```
 
 See `examples/si-midorikawa-1999.conf` for instance of Si-Midorikawa 1999 model parameters.
+
+## 
 
 ## LICENSE
 

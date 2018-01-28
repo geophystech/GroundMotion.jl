@@ -13,7 +13,7 @@
 ##   See the License for the specific language governing permissions and
 ##   limitations under the License.
 
-## initial release by Andrey Stepnov a.stepnov@geophsytech.ru
+## initial release by Andrey Stepnov, email: a.stepnov@geophsytech.ru
 
 ## read VS30 file
 function read_vs30_file(filename::String)
