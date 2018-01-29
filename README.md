@@ -142,6 +142,7 @@ See `examples/as2008.conf` for instance of AS2008 model parameters.
 
 Actually they are not presented at code.
 
+**R_rup - is a distance to hypocenter**
 
 ## Si and Midorikawa 1999 GMPE Model
 
@@ -166,6 +167,8 @@ pga_simidorikawa1999(eq::Earthquake,
 
 See `examples/si-midorikawa-1999.conf` for instance of Si-Midorikawa 1999 model parameters.
 
+**X - is a distance to hypocenter**
+
 ## Morikawa and Fujiwara 2013 GMPE Model
 
 ### Reference
@@ -179,6 +182,12 @@ Morikawa N., Fujiwara H. A New Ground Motion Prediction Equation for Japan Appli
 
 
 ### PSA
+
+**About Dl variable**
+
+The `Dl` is the top depth to the layer whose S-wave velocity is `l` (in `[m/s]`) at the site. Actually it should be another one grid with `Dl` depths on each grid point. For this version `Dl` variable pass to GMPE functions as a constant.
+
+**X - is a distance to hypocenter**
 
 ## LICENSE
 

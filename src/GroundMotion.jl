@@ -30,6 +30,7 @@ module GroundMotion
     Params_mf2013,
     # functions
     read_vs30_file,
+    read_vs30_dl_file,
     convert_to_float_array,
     pga_as2008,
     pga_simidorikawa1999,
@@ -43,6 +44,8 @@ module GroundMotion
   include("as2008.jl")
   # Si-Midorikawa 1999 GMPE modeling
   include("simidorikawa1999.jl")
+  # Morikawa-Fujiwara 2013 GMPE modeling
+  include("morikawafujiwara2013.jl")
   # read/write functions
   include("auxiliary.jl")
 end

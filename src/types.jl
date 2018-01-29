@@ -19,14 +19,27 @@
 """
 Mutable type for fill vs30 grid (Array).
 
-  Point_vs30(lon,lat,vs30).
+  `Point_vs30(lon,lat,vs30)`
 
-Latitude and longitude assumes degrees for WGS84 ellipsoid. vs30 in meters per second. All fields are ::Float64.
+Latitude and longitude assumes degrees for WGS84 ellipsoid. `vs30` in meters per second. All fields are ::Float64.
 """
 mutable struct Point_vs30
   lon::Float64
   lat::Float64
   vs30::Float64
+end
+"""
+Mutable type for fill vs30 grid (Array) with `Dl` data. `Dl` is the top depth to the layer whose S-wave velocity is `l` (in `[m/s]`) at the site. See Morikawa Fujiwara 2013 for further reading.
+
+  `Point_vs30(lon,lat,vs30,dl)`
+
+Latitude and longitude assumes degrees for WGS84 ellipsoid. `vs30` in meters per second. `dl` in kilometers. All fields are ::Float64.
+"""
+mutable struct Point_vs30_dl
+  lon::Float64
+  lat::Float64
+  vs30::Float64
+  dl::Float64
 end
 ## Output PGA data point
 """

@@ -2,12 +2,17 @@
 @testset "Morikawa and Fujiwara 2013 GMPE PGA" begin
   # init model parameters
   include("../examples/morikawa-fujiwara-2013.conf")
+
   ## test at epicenter on grid M7.0
-#  @test pga_simidorikawa1999(eq_7,config_simidorikawa1999_crustal,grid_epicenter)[1].pga == 59.04
-  ## run PGA modeling on grid withoit minpga Depth <= 30 M6.0
-#  S_c = pga_simidorikawa1999(eq_6,config_simidorikawa1999_crustal,grid)
-#  @test length(S_c) == TEST_GRID_SIZE
-#  @test round(sum([S_c[i].pga for i=1:length(S_c)]),2) == 6.98
+  @test pga_mf2013(eq_7,config_mf2013_crustal_pga,grid_epicenter)[1].pga == 53.28
+
+
+  ## run PGA modeling on grid M6, withoit minpga, ASID false, Dl - constant
+  S_c = pga_mf2013(eq_6,config_mf2013_crustal_pga,grid)
+  @test length(S_c) == TEST_GRID_SIZE
+  @test round(sum([S_c[i].pga for i=1:length(S_c)]),2) == 3.4
+
+
 #  S_intp = pga_simidorikawa1999(eq_6,config_simidorikawa1999_interplate,grid)
 #  @test length(S_intp) == TEST_GRID_SIZE 
 #  @test round(sum([S_intp[i].pga for i=1:length(S_intp)]),2) == 8.38

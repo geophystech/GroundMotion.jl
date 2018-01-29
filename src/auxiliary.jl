@@ -26,6 +26,16 @@ function read_vs30_file(filename::String)
   return B
 end
 
+## read VS30 file with Dl column
+function read_vs30_dl_file(filename::String)
+  A = readdlm(filename)
+  vs30_row_num = length(A[:,1])
+  B = Array{Point_vs30_dl}(0)
+  for i=1:vs30_row_num
+    B = push!(B,Point_vs30_dl(A[i,1],A[i,2],A[i,3],A[i,4]))
+  end
+  return B
+end
 ## convert Array{Point_pga_out}(N,1) array to Array{Float64}(N,4)
 """
 convert_to_float_array(B::Array{T,N})
