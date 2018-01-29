@@ -32,11 +32,9 @@ module GroundMotion
     read_vs30_file,
     read_vs30_dl_file,
     convert_to_float_array,
-    pga_as2008,
-    pga_simidorikawa1999,
-    pga_mf2013,
-    pgv_mf2013,
-    psa_mf2013
+    gmpe_as2008,
+    gmpe_simidorikawa1999,
+    gmpe_mf2013
   
   # Types
   include("types.jl")

@@ -4,11 +4,11 @@
   include("../examples/morikawa-fujiwara-2013.conf")
 
   ## test at epicenter on grid M7.0
-  @test pga_mf2013(eq_7,config_mf2013_crustal_pga,grid_epicenter)[1].pga == 53.28
+  @test gmpe_mf2013(eq_7,config_mf2013_crustal_pga,grid_epicenter)[1].pga == 53.28
 
 
   ## run PGA modeling on grid M6, withoit minpga, ASID false, Dl - constant
-  S_c = pga_mf2013(eq_6,config_mf2013_crustal_pga,grid)
+  S_c = gmpe_mf2013(eq_6,config_mf2013_crustal_pga,grid)
   @test length(S_c) == TEST_GRID_SIZE
   @test round(sum([S_c[i].pga for i=1:length(S_c)]),2) == 3.4
 

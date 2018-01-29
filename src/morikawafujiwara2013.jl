@@ -15,6 +15,33 @@
 ##
 ## initial release by Andrey Stepnov, email: a.stepnov@geophsytech.ru
 
+"""
+**ON GRID**
+
+`gmpe_as2008(eq::Earthquake,config_as2008::Params_as2008,grid::Array{Point_vs30},min_val::Number)` 
+
+where `min_val=0` by default
+  
+Output will be 1-d `Array{Point_<ground_motion_type>_out}` with points based on input grid with `ground_motion > min_val` (`pga`,`psa` is Acceleration of gravity in percent (%g) rounded to ggg.gg, `pgv` in cm/s^2)
+
+**without grid**
+  
+`gmpe_as2008(eq::Earthquake,config::Params_as2008,VS30::Number=350,distance::Int64=1000)` 
+
+where `VS30=30` [m/s^2], `distance=1000` [km] by default.
+  
+Output will be 1-d `Array{Float64}` with `1:distance` values of `pga` (that is Acceleration of gravity (g) in percent rounded to ggg.gg)
+
+**EXAMPLES:**
+```  
+gmpe_as2008(eq,config_as2008,grid) # for PGA on GRID
+gmpe_as2008(eq,config_as2008) # for without input grid
+```
+
+**Model parameters**
+
+Please, see `examples/as-2008.conf`
+"""
 ## Morikawa Fujiwara2013 (2013) PGA modeling ON GRID, Dl = constant
 function gmpe_mf2013(eq::Earthquake,config::Params_mf2013,grid::Array{Point_vs30};min_val::Number=0,Dl::Number=250,Xvf::Number=0)
   vs30_row_num = length(grid[:,1])
@@ -58,8 +85,8 @@ function gmpe_mf2013(eq::Earthquake,config::Params_mf2013,grid::Array{Point_vs30
       A = 10^(log_Ags)
     end
     # output depend on type of motion
-    if config.ground_motion_type == "PGA"
-      motion = round(((A/100)/g_global * 100),2)
+    if config.ground_motion_type == "PGA" || config.ground_motion_type == "PSA"
+      motion = round(((A/100)/g_global * 100),2) ## convert cm/c^2 to %g
     elseif config.ground_motion_type == "PGV"
       motion = A
     end
@@ -69,5 +96,3 @@ function gmpe_mf2013(eq::Earthquake,config::Params_mf2013,grid::Array{Point_vs30
   end
   return output_data
 end
-## export functions
-pga_mf2013 = gmpe_mf2013

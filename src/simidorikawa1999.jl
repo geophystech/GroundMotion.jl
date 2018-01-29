@@ -16,7 +16,7 @@
 ## initial release by Andrey Stepnov a.stepnov@geophsytech.ru
 
 """
-**PGA ON GRID**
+**ON GRID**
 
 `pga_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,grid::Array{Point_vs30},min_val::Number)` 
 
@@ -24,7 +24,7 @@ where `min_val=0` by default
   
 Output will be 1-d `Array{Point_pga_out}` with points based on the input grid with `pga > min_val` (pga is Acceleration of gravity (g) in percent rounded to ggg.gg)
 
-**PGA without grid**
+**without grid**
   
 `pga_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,VS30::Number=350,distance::Int64=1000)` 
 
@@ -85,7 +85,6 @@ function gmpe_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,gr
   end
   return output_data
 end
-
 ## Si-Midorikawa (1999) PGA modeling for PLOTTING
 function gmpe_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,VS30::Number=350,distance::Number=1000)
   #vs30_row_num = length(grid[:,1])
@@ -122,6 +121,3 @@ function gmpe_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,VS
   #output_data
   return output_data
 end
-## Export functions 
-pga_simidorikawa1999 = gmpe_simidorikawa1999
-
