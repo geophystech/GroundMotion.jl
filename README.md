@@ -115,7 +115,7 @@ eq = Earthquake(143.04,51.92,13,6)
 
 Latitude and longitude assumes degrees for WGS84 ellipsoid. Depth in km. `Mw` usually not ready right after earthquake. `Mw=0` in case of moment magnitude is not specified. All gmpe models uses `Mw` if it is or `Ml` otherwise.
 
-## AS2008 GMPE Model
+## Abrahamson and Silva 2008 GMPE Model
  
 ### Reference
 
@@ -143,7 +143,7 @@ See `examples/as2008.conf` for instance of AS2008 model parameters.
 Actually they are not presented at code.
 
 
-## Si-Midorikawa 1999 GMPE Model
+## Si and Midorikawa 1999 GMPE Model
 
 ### References 
 
@@ -166,7 +166,19 @@ pga_simidorikawa1999(eq::Earthquake,
 
 See `examples/si-midorikawa-1999.conf` for instance of Si-Midorikawa 1999 model parameters.
 
-## 
+## Morikawa and Fujiwara 2013 GMPE Model
+
+### Reference
+
+Morikawa N., Fujiwara H. A New Ground Motion Prediction Equation for Japan Applicable up to M9 Mega-Earthquake // Journal of Disaster Research. 2013. Vol. 5 (8). P. 878–888.
+
+### PGA
+
+
+### PGV
+
+
+### PSA
 
 ## LICENSE
 

@@ -27,11 +27,15 @@ module GroundMotion
     Earthquake,
     Params_as2008,
     Params_simidorikawa1999,
+    Params_mf2013,
     # functions
     read_vs30_file,
     convert_to_float_array,
     pga_as2008,
-    pga_simidorikawa1999
+    pga_simidorikawa1999,
+    pga_mf2013,
+    pgv_mf2013,
+    psa_mf2013
   
   # Types
   include("types.jl")

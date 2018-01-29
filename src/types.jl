@@ -129,5 +129,22 @@ mutable struct Params_simidorikawa1999
   S2::Float64
   S3::Float64
 end
-
+## Morikawa-Fujiwara 2013 GMPE parameters
+mutable struct Params_mf2013
+  Mw0::Float64
+  a::Float64
+  b::Float64
+  c::Float64
+  d::Float64
+  e::Float64
+  sigma::Float64
+  pd::Float64
+  Dlmin::Float64
+  D0::Float64
+  ps::Float64
+  Vsmax::Float64
+  V0::Float64
+  gamma::Float64
+  ASID::Bool # Anomalous Seismic Intensity Distribution
+end
 

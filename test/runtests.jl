@@ -18,5 +18,8 @@ include("test_auxiliary.jl")
 ## AS2008 GMPE tests
 include("test_as2008.jl")
 
-## Si-Midorikawa GMPE tests
+## Si-Midorikawa 1999 GMPE tests
 include("test_simidorikawa1999.jl")
+
+## Morikawa-Fujiwara 2013 GMPE tests
+include("test_morikawafujiwara2013.jl")

@@ -4,7 +4,7 @@
   @test length(grid) == TEST_GRID_SIZE
   # get PGA data grid and test it
   include("../examples/as2008.conf")
-  pga_grid = pga_as2008(eq_6,config_as2008,grid)
+  pga_grid = pga_as2008(eq_6,config_as2008_pga,grid)
   @test typeof(pga_grid) == Array{GroundMotion.Point_pga_out,1}
   # convert to float array
   A = convert_to_float_array(grid)
