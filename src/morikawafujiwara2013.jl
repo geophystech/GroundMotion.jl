@@ -16,7 +16,7 @@
 ## initial release by Andrey Stepnov, email: a.stepnov@geophsytech.ru
 
 ## Morikawa Fujiwara2013 (2013) PGA modeling ON GRID, Dl = constant
-function pga_mf2013(eq::Earthquake,config::Params_mf2013,grid::Array{Point_vs30};min_pga::Number=0,Dl::Number=250,Xvf::Number=0)
+function gmpe_mf2013(eq::Earthquake,config::Params_mf2013,grid::Array{Point_vs30};min_val::Number=0,Dl::Number=250,Xvf::Number=0)
   vs30_row_num = length(grid[:,1])
   # define magnitude and epicenter
   eq.moment_mag == 0 ? magnitude = eq.local_mag : magnitude = eq.moment_mag
@@ -29,7 +29,13 @@ function pga_mf2013(eq::Earthquake,config::Params_mf2013,grid::Array{Point_vs30}
   # define Gd out of loop by grid points
   Gd = config.pd*log10(max(config.Dlmin,Dl)/config.D0)
   # init output_data
-  output_data = Array{Point_pga_out}(0)
+  if config.ground_motion_type == "PGA"
+    output_data = Array{Point_pga_out}(0)
+  elseif config.ground_motion_type == "PGV"
+    output_data = Array{Point_pgv_out}(0)
+  elseif config.ground_motion_type == "PSA"
+    output_data = Array{Point_psa_out}(0)
+  end
   # main cycle by grid points
   for i=1:vs30_row_num
     # rrup the same as X in Si-Midorikawa (1999) formulae
@@ -45,20 +51,23 @@ function pga_mf2013(eq::Earthquake,config::Params_mf2013,grid::Array{Point_vs30}
     log_Ags = log_Agd + Gs
     # ASID
     if config.ASID == true
-i     AI = config.gamma*Xvf*(eq.depth - 30)
+      AI = config.gamma*Xvf*(eq.depth - 30)
       log_AI = log_Ags + AI
-      A = 10^(log_AI) # pga in cm/c^2
-      g = round(((A/100)/g_global * 100),2) ## %g rounded to ggg.gg
+      A = 10^(log_AI) # pga and psa in cm/c^2, pgv in cm/s
     else
       A = 10^(log_Ags)
-      g = round(((A/100)/g_global * 100),2)
     end
-    if g >= min_pga
-      output_data = push!(output_data, Point_pga_out(grid[i].lon,grid[i].lat,g))
+    # output depend on type of motion
+    if config.ground_motion_type == "PGA"
+      motion = round(((A/100)/g_global * 100),2)
+    elseif config.ground_motion_type == "PGV"
+      motion = A
     end
-    # debug
-    # println(hcat(grid[i].vs30,r_rup,log_ARA,A,g))
+    if motion >= min_val
+      output_data = push!(output_data, Point_pga_out(grid[i].lon,grid[i].lat,motion))
+    end
   end
   return output_data
 end
-
+## export functions
+pga_mf2013 = gmpe_mf2013

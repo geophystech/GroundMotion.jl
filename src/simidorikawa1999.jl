@@ -18,11 +18,11 @@
 """
 **PGA ON GRID**
 
-`pga_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,grid::Array{Point_vs30},min_pga::Number)` 
+`pga_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,grid::Array{Point_vs30},min_val::Number)` 
 
-where `min_pga=0` by default
+where `min_val=0` by default
   
-Output will be 1-d `Array{Point_pga_out}` with points based on the input grid with `pga > min_pga` (pga is Acceleration of gravity (g) in percent rounded to ggg.gg)
+Output will be 1-d `Array{Point_pga_out}` with points based on the input grid with `pga > min_val` (pga is Acceleration of gravity (g) in percent rounded to ggg.gg)
 
 **PGA without grid**
   
@@ -43,7 +43,7 @@ pga_simidorikawa1999(eq,config_simidorikawa1999_intraplate) # for PGA without in
 Please, see `examples/si-midorikawa-1999.conf`
 """
 ## Si-Midorikawa (1999) PGA modeling ON GRID
-function pga_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,grid::Array{Point_vs30},min_pga::Number=0)
+function gmpe_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,grid::Array{Point_vs30},min_val::Number=0)
   vs30_row_num = length(grid[:,1])
   eq.moment_mag == 0 ? magnitude = eq.local_mag : magnitude = eq.moment_mag
   epicenter = LatLon(eq.lat, eq.lon)
@@ -56,7 +56,9 @@ function pga_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,gri
   # define c
   c = 0.006*10^(0.5*magnitude)
   # init output_data
-  output_data = Array{Point_pga_out}(0)
+  if config.ground_motion_type == "PGA"
+    output_data = Array{Point_pga_out}(0)
+  end
   # main cycle by grid points
   for i=1:vs30_row_num
     # rrup the same as X in Si-Midorikawa (1999) formulae
@@ -72,9 +74,11 @@ function pga_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,gri
       A = 10^(b + 0.6*log10(1.7*eq.depth + c) - 
               1.6*log10(r_rup + c) - config.k*r_rup + log_ARA)
     end
-    g = round(((A/100)/g_global * 100),2)
-    if g >= min_pga
-      output_data = push!(output_data, Point_pga_out(grid[i].lon,grid[i].lat,g))
+    if config.ground_motion_type == "PGA"
+      motion = round(((A/100)/g_global * 100),2)
+    end
+    if motion >= min_val
+      output_data = push!(output_data, Point_pga_out(grid[i].lon,grid[i].lat,motion))
     end
     # debug
     # println(hcat(grid[i].vs30,r_rup,log_ARA,A,g))
@@ -83,7 +87,7 @@ function pga_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,gri
 end
 
 ## Si-Midorikawa (1999) PGA modeling for PLOTTING
-function pga_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,VS30::Number=350,distance::Number=1000)
+function gmpe_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,VS30::Number=350,distance::Number=1000)
   #vs30_row_num = length(grid[:,1])
   eq.moment_mag == 0 ? magnitude = eq.local_mag : magnitude = eq.moment_mag
   # define g_global
@@ -110,11 +114,14 @@ function pga_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,VS3
       A = 10^(b + 0.6*log10(1.7*eq.depth + c) - 
               1.6*log10(r_rup + c) - config.k*r_rup + log_ARA)
     end
-    g = round(((A/100)/g_global * 100),2)
-    output_data = push!(output_data, g)
-    # debug
-    # println(hcat(r_rup,A,g))
+    if config.ground_motion_type == "PGA"
+      motion = round(((A/100)/g_global * 100),2)
+    end
+    output_data = push!(output_data, motion)
   end
   #output_data
   return output_data
 end
+## Export functions 
+pga_simidorikawa1999 = gmpe_simidorikawa1999
+

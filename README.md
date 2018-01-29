@@ -31,9 +31,9 @@ For example: function `pga_as2008` with parameters
 pga_as2008(eq::Earthquake,
            config_as2008::Params_as2008,
            grid::Array{Point_vs30},
-           min_pga::Number)
+           min_val::Number)
 ```
-return 1-d `Array{Point_pga_out}` with points based on input grid with `pga > min_pga` (`pga` is Acceleration of gravity in percent (%g) rounded to `ggg.gg`)
+return 1-d `Array{Point_pga_out}` with points based on input grid with `pga > min_val` (`pga` is Acceleration of gravity in percent (%g) rounded to `ggg.gg`)
 
 
 ### Without grid
@@ -127,7 +127,7 @@ Abrahamson, Norman, and Walter Silva. "Summary of the Abrahamson & Silva NGA gro
 pga_as2008(eq::Earthquake,
            config_as2008::Params_as2008,
            grid::Array{Point_vs30,N},
-           min_pga::Number)
+           min_val::Number)
 ## Without grid
 pga_as2008(eq::Earthquake,
            config::Params_as2008,
@@ -157,7 +157,7 @@ Actually they are not presented at code.
 pga_simidorikawa1999(eq::Earthquake,
                      config::Params_simidorikawa1999,
                      grid::Array{Point_vs30,N},
-                     min_pga::Number)
+                     min_val::Number)
 ## Without grid
 pga_simidorikawa1999(eq::Earthquake,
                      config::Params_simidorikawa1999,

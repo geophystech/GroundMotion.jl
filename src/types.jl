@@ -128,6 +128,7 @@ mutable struct Params_as2008
   vlin::Float64
   v1::Float64
   vs30_1100::Float64
+  ground_motion_type::String
 end
 ## Si-Midorikawa 1999 GMPE parameters
 mutable struct Params_simidorikawa1999
@@ -141,6 +142,7 @@ mutable struct Params_simidorikawa1999
   S1::Float64
   S2::Float64
   S3::Float64
+  ground_motion_type::String
 end
 ## Morikawa-Fujiwara 2013 GMPE parameters
 mutable struct Params_mf2013
@@ -159,5 +161,6 @@ mutable struct Params_mf2013
   V0::Float64
   gamma::Float64
   ASID::Bool # Anomalous Seismic Intensity Distribution
+  ground_motion_type::String
 end
 

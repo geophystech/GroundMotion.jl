@@ -18,11 +18,11 @@
 """
 **PGA ON GRID**
 
-`pga_as2008(eq::Earthquake,config_as2008::Params_as2008,grid::Array{Point_vs30},min_pga::Number)` 
+`pga_as2008(eq::Earthquake,config_as2008::Params_as2008,grid::Array{Point_vs30},min_val::Number)` 
 
-where `min_pga=0` by default
+where `min_val=0` by default
   
-Output will be 1-d `Array{Point_pga_out}` with points based on input grid with `pga > min_pga` (`pga` is Acceleration of gravity (g) in percent rounded to ggg.gg)
+Output will be 1-d `Array{Point_pga_out}` with points based on input grid with `pga > min_val` (`pga` is Acceleration of gravity (g) in percent rounded to ggg.gg)
 
 **PGA without grid**
   
@@ -43,7 +43,7 @@ pga_as2008(eq,config_as2008) # for without input grid
 Please, see `examples/as-2008.conf`
 """
 ## AS2008 PGA modeling ON GRID
-function pga_as2008(eq::Earthquake,config::Params_as2008,grid::Array{Point_vs30},min_pga::Number=0)
+function gmpe_as2008(eq::Earthquake,config::Params_as2008,grid::Array{Point_vs30},min_val::Number=0)
   vs30_row_num = length(grid[:,1])
   eq.moment_mag == 0 ? magnitude = eq.local_mag : magnitude = eq.moment_mag
   epicenter = LatLon(eq.lat, eq.lon)
@@ -56,7 +56,9 @@ function pga_as2008(eq::Earthquake,config::Params_as2008,grid::Array{Point_vs30}
     t6 = 0.5
   end
   # modeling
-  output_data = Array{Point_pga_out}(0)
+  if config.ground_motion_type == "PGA"
+    output_data = Array{Point_pga_out}(0)
+  end
   for i=1:vs30_row_num
     # rrup
     current_point = LatLon(grid[i].lat,grid[i].lon)
@@ -94,18 +96,17 @@ function pga_as2008(eq::Earthquake,config::Params_as2008,grid::Array{Point_vs30}
       f5 = (config.a10 + config.b * config.n) * 
         log(config.v1 / config.vlin)
     end
-    g = round((exp(f1 + f5 + f8) * 100),2)
-    if g >= min_pga
-      output_data = push!(output_data, Point_pga_out(grid[i].lon,grid[i].lat,g))
+    if config.ground_motion_type == "PGA"
+      motion = round((exp(f1 + f5 + f8) * 100),2)
     end
-    # debug
-    #println(hcat(grid[i].vs30,r_rup,f1,f8,pga1100,f5,g[i]))
+    if motion >= min_val
+      output_data = push!(output_data, Point_pga_out(grid[i].lon,grid[i].lat,motion))
+    end
   end
   return output_data
 end
-
 ## AS2008 PGA modeling for PLOTTING
-function pga_as2008(eq::Earthquake,config::Params_as2008,VS30::Number=350,distance::Number=1000)
+function gmpe_as2008(eq::Earthquake,config::Params_as2008,VS30::Number=350,distance::Number=1000)
   eq.moment_mag == 0 ? magnitude = eq.local_mag : magnitude = eq.moment_mag
   # define t6
   if magnitude < 5.5
@@ -152,8 +153,12 @@ function pga_as2008(eq::Earthquake,config::Params_as2008,VS30::Number=350,distan
       f5 = (config.a10 + config.b * config.n) * 
         log(config.v1 / config.vlin)
     end
-    g = round((exp(f1 + f5 + f8) * 100),2)
-    output_data = push!(output_data, g)
+    if config.ground_motion_type == "PGA"
+      motion = round((exp(f1 + f5 + f8) * 100),2)
+    end
+    output_data = push!(output_data, motion)
   end
   return output_data
 end
+
+pga_as2008 = gmpe_as2008
