@@ -87,7 +87,7 @@ Use `read_vs30_file` to read data from vs30 file:
 ```julia
 grid = read_vs30_file("Downloads/web/somevs30.txt")
 ```
-After some `pga_*`,`pgv_*`,`pgd_*`,`psa_*` function on grid done, you will get `Array{Point_{pga,pgv,pgd,psa}_out}`. Use `convert_to_float_array` to convert `Array{Point_{pga,pgv,pgd,psa}_out}` to `Nx3` `Array{Float64}`:
+After some `gmpe_*` function on grid done, you will get `Array{Point_{pga,pgv,pgd,psa}_out}`. Use `convert_to_float_array` to convert `Array{Point_{pga,pgv,pgd,psa}_out}` to `Nx3` `Array{Float64}`:
 ```julia
 typeof(A)
 #--> Array{GroundMoution.Point_pga_out,1}
