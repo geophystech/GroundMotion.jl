@@ -4,7 +4,7 @@ The ground motion evaluation module (earthquake seismology)
 ### Build Status
 
 [![Linux/MacOS](https://travis-ci.org/geophystech/GroundMotion.jl.svg?branch=master)](https://travis-ci.org/geophystech/GroundMotion.jl) [![Windows](https://ci.appveyor.com/api/projects/status/0xyromepmwwt0nob?svg=true)](https://ci.appveyor.com/project/geophystech/groundmotion-jl)
-[![Coverage Status](https://coveralls.io/repos/github/geophystech/GroundMotion.jl/badge.svg?branch=master)](https://coveralls.io/github/geophystech/GroundMotion.jl?branch=master)[![GroundMotion](http://pkg.julialang.org/badges/GroundMotion_0.6.svg)](http://pkg.julialang.org/detail/GroundMotion)[![GroundMotion](http://pkg.julialang.org/badges/GroundMotion_0.7.svg)](http://pkg.julialang.org/detail/GroundMotion)
+[![Coverage Status](https://coveralls.io/repos/github/geophystech/GroundMotion.jl/badge.svg?branch=master)](https://coveralls.io/github/geophystech/GroundMotion.jl?branch=master) [![GroundMotion](http://pkg.julialang.org/badges/GroundMotion_0.6.svg)](http://pkg.julialang.org/detail/GroundMotion) [![GroundMotion](http://pkg.julialang.org/badges/GroundMotion_0.7.svg)](http://pkg.julialang.org/detail/GroundMotion)
 
 ### Install
 
@@ -31,7 +31,7 @@ pga_as2008(eq::Earthquake,
            grid::Array{Point_vs30},
            min_val::Number)
 ```
-where `ground_motion_type = "PGA"` at `config` return 1-d `Array{Point_pga_out}` with points based on input grid with `pga > min_val` (`pga` is Acceleration of gravity in percent (%g) rounded to `ggg.gg`).
+where `ground_motion_type = "PGA"` at `config`, return 1-d is `Array{Point_pga_out}` with points based on input grid and `pga > min_val` (`pga` is Acceleration of gravity in percent (%g) rounded to `ggg.gg`).
 
 
 ### Without grid
@@ -45,7 +45,7 @@ pga_as2008(eq::Earthquake,
            VS30::Number=350,
            distance::Int64=1000)
 ```
-where `ground_motion_type = "PGA"` at `config` return `Array{Float64}` with `1:distance` values of `pga` (also rounded to `ggg.gg`).
+where `ground_motion_type = "PGA"` at `config`, return is `Array{Float64}` with `1:distance` values of `pga` (also rounded to `ggg.gg`).
 
 ## Short example:
 ```julia
@@ -122,17 +122,20 @@ Abrahamson, Norman, and Walter Silva. "Summary of the Abrahamson & Silva NGA gro
 ### PGA:
 ```julia
 ## ON GRID
-pga_as2008(eq::Earthquake,
+gmpe_as2008(eq::Earthquake,
            config_as2008::Params_as2008,
            grid::Array{Point_vs30,N},
            min_val::Number)
 ## Without grid
-pga_as2008(eq::Earthquake,
+gmpe_as2008(eq::Earthquake,
            config::Params_as2008,
            VS30::Number=350,
            distance::Int64=1000)
 ```
-See `examples/as2008.conf` for instance of AS2008 model parameters.
+
+### Model Parameters
+
+See `examples/as2008.conf`.
 
 **The variables that always zero for current version:**
 
@@ -152,18 +155,20 @@ Actually they are not presented at code.
 ### PGA:
 ```julia
 ## ON GRID
-pga_simidorikawa1999(eq::Earthquake,
+gmpe_simidorikawa1999(eq::Earthquake,
                      config::Params_simidorikawa1999,
                      grid::Array{Point_vs30,N},
                      min_val::Number)
 ## Without grid
-pga_simidorikawa1999(eq::Earthquake,
+gmpe_simidorikawa1999(eq::Earthquake,
                      config::Params_simidorikawa1999,
                      VS30::Number=350,
                      distance::Int64=1000)
 ```
 
-See `examples/si-midorikawa-1999.conf` for instance of Si-Midorikawa 1999 model parameters.
+### Model Parameters
+
+See `examples/si-midorikawa-1999.conf`.
 
 **X - is a distance to hypocenter**
 
@@ -173,17 +178,40 @@ See `examples/si-midorikawa-1999.conf` for instance of Si-Midorikawa 1999 model 
 
 Morikawa N., Fujiwara H. A New Ground Motion Prediction Equation for Japan Applicable up to M9 Mega-Earthquake // Journal of Disaster Research. 2013. Vol. 5 (8). P. 878–888.
 
-### PGA
+### PGA, PGV, PSA
+```julia
+## On grid whithout Dl data
+gmpe_mf2013(eq::Earthquake,
+            config::Params_mf2013,
+            grid::Array{Point_vs30};
+            min_val::Number=0,
+            Dl::Number=250,
+            Xvf::Number=0)
+## On grid with Dl data
+gmpe_mf2013(eq::Earthquake,
+            config::Params_mf2013,g
+            rid::Array{Point_vs30_dl};
+            min_val::Number=0,
+            Xvf::Number=0)
+## without any grid
+gmpe_as2008(eq::Earthquake,
+            config::Params_mf2013;
+            VS30::Number=350,
+            distance::Int64=1000,
+            Dl::Number=250,
+            Xvf::Number=0)
+```
+`min_val=0`, `Xvf=0` [km] by default. `Dl=250` [km] by default in case of grid pass without Dl data. 
 
+NOTE that `gmpe_mf2013` has next keyword arguments: `min_val`, `min_val`, `Dl`, `VS30`, `distance`. The keyword arguments should be pass with name. Example: `gmpe_mf2013(eq,config,VS30=500,Xvf=40)`.
 
-### PGV
+### Model Parameters
 
-
-### PSA
+See `examples/morikawa-fujiwara-2013.conf`
 
 **About Dl variable**
 
-The `Dl` is the top depth to the layer whose S-wave velocity is `l` (in `[m/s]`) at the site. Actually it should be another one grid with `Dl` depths on each grid point. For this version `Dl` variable pass to GMPE functions as a constant.
+The `Dl` is the top depth to the layer whose S-wave velocity is `l` (in `[m/s]`) at the site. Actually it should be another one grid with `Dl` depths on each grid point (`Point_vs30_dl` type). If you pass grid without `Dl`, then `Dl` variable pass to GMPE functions as a constant.
 
 **X - is a distance to hypocenter**
 

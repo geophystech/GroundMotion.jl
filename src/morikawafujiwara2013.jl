@@ -24,7 +24,7 @@ gmpe_mf2013(eq::Earthquake,config::Params_mf2013,grid::Array{Point_vs30};min_val
 ```
 - On grid with Dl data
 ```
-gmpe_mf2013(eq::Earthquake,config::Params_mf2013,grid::Array{Point_vs30};min_val::Number=0,Xvf::Number=0)
+gmpe_mf2013(eq::Earthquake,config::Params_mf2013,grid::Array{Point_vs30_dl};min_val::Number=0,Xvf::Number=0)
 ```
 where `min_val=0`, `Xvf=0` [km] by default. `Dl=250` [km] by default in case of grid pass without `Dl` data.
   
