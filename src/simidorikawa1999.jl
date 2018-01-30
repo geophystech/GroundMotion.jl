@@ -58,6 +58,7 @@ function gmpe_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,gr
   # init output_data
   if config.ground_motion_type == "PGA"
     output_data = Array{Point_pga_out}(0)
+    out_type = Point_pga_out
   end
   # main cycle by grid points
   for i=1:vs30_row_num
@@ -78,10 +79,8 @@ function gmpe_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,gr
       motion = round(((A/100)/g_global * 100),2)
     end
     if motion >= min_val
-      output_data = push!(output_data, Point_pga_out(grid[i].lon,grid[i].lat,motion))
+      output_data = push!(output_data, out_type(grid[i].lon,grid[i].lat,motion))
     end
-    # debug
-    # println(hcat(grid[i].vs30,r_rup,log_ARA,A,g))
   end
   return output_data
 end
@@ -118,6 +117,5 @@ function gmpe_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,VS
     end
     output_data = push!(output_data, motion)
   end
-  #output_data
   return output_data
 end

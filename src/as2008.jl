@@ -58,6 +58,7 @@ function gmpe_as2008(eq::Earthquake,config::Params_as2008,grid::Array{Point_vs30
   # modeling
   if config.ground_motion_type == "PGA"
     output_data = Array{Point_pga_out}(0)
+    out_type = Point_pga_out
   end
   for i=1:vs30_row_num
     # rrup
@@ -100,7 +101,7 @@ function gmpe_as2008(eq::Earthquake,config::Params_as2008,grid::Array{Point_vs30
       motion = round((exp(f1 + f5 + f8) * 100),2)
     end
     if motion >= min_val
-      output_data = push!(output_data, Point_pga_out(grid[i].lon,grid[i].lat,motion))
+      output_data = push!(output_data, out_type(grid[i].lon,grid[i].lat,motion))
     end
   end
   return output_data

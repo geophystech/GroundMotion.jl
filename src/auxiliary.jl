@@ -52,13 +52,22 @@ function convert_to_float_array(B::Array{Point_pga_out})
   end
   return A
 end
-convert_to_float_array(B::Array{Point_vs30}) = 
-begin
+function convert_to_float_array(B::Array{Point_vs30})
   A = Array{Float64}(length(B),3)
   for i=1:length(B)
    A[i,1] = B[i].lon
    A[i,2] = B[i].lat
    A[i,3] = B[i].vs30
+  end
+return A
+end
+function convert_to_float_array(B::Array{Point_vs30_dl})
+  A = Array{Float64}(length(B),4)
+  for i=1:length(B)
+   A[i,1] = B[i].lon
+   A[i,2] = B[i].lat
+   A[i,3] = B[i].vs30
+   A[i,4] = B[i].dl
   end
 return A
 end

@@ -2,41 +2,62 @@
 @testset "Morikawa and Fujiwara 2013 GMPE PGA" begin
   # init model parameters
   include("../examples/morikawa-fujiwara-2013.conf")
-
-  ## test at epicenter on grid M7.0
+  ## PGA at epicenter on grid M7.0, Dl = 250 (constant)
   @test gmpe_mf2013(eq_7,config_mf2013_crustal_pga,grid_epicenter)[1].pga == 53.28
-
-
-  ## run PGA modeling on grid M6, withoit minpga, ASID false, Dl - constant
+  ## PGA,PGV,PSA on grid, M6, ASID false, Dl - constant
   S_c = gmpe_mf2013(eq_6,config_mf2013_crustal_pga,grid)
   @test length(S_c) == TEST_GRID_SIZE
+  @test typeof(S_c) == Array{GroundMotion.Point_pga_out,1}
   @test round(sum([S_c[i].pga for i=1:length(S_c)]),2) == 3.4
-
-
-#  S_intp = pga_simidorikawa1999(eq_6,config_simidorikawa1999_interplate,grid)
-#  @test length(S_intp) == TEST_GRID_SIZE 
-#  @test round(sum([S_intp[i].pga for i=1:length(S_intp)]),2) == 8.38
-#  S_intra = pga_simidorikawa1999(eq_6,config_simidorikawa1999_intraplate,grid)
-#  @test length(S_intra) == TEST_GRID_SIZE
-#  @test round(sum([S_intra[i].pga for i=1:length(S_intra)]),2) == 13.9
-  ## run PGA modeling on grid with minpga Depth <= 30 M6.0
-#  S_c = pga_simidorikawa1999(eq_6,config_simidorikawa1999_crustal,grid,0.34)
-#  @test length(S_c) == WITH_MINPGA
-#  @test round(sum([S_c[i].pga for i=1:length(S_c)]),2) == 4.61
-  ## run PGA modeling on grid with minpga Depth > 30 M6.0
-#  eq_30 = Earthquake(143.04,51.92,35,6.0)
-#  S_c = pga_simidorikawa1999(eq_30,config_simidorikawa1999_crustal,grid,0.15)
-#  @test length(S_c) == WITH_MINPGA
-#  @test round(sum([S_c[i].pga for i=1:length(S_c)]),2) == 2.04
-  ## run PGA modeling for plotting Depth <= 30 M6.0
-#  S_c = pga_simidorikawa1999(eq_6,config_simidorikawa1999_crustal)
-#  @test length(S_c) == SIMULATION_ARRAY_SIZE
-#  @test round(sum(S_c),2) == 1096.79
-#  S_intp = pga_simidorikawa1999(eq_6,config_simidorikawa1999_interplate)
-#  @test round(sum(S_intp),2) == 1318.74
-#  S_intra = pga_simidorikawa1999(eq_6,config_simidorikawa1999_intraplate)
-#  @test round(sum(S_intra),2) == 2188.89
-#  ## run PGA modeling for plotting Depth > 30 M6.0
-#  S_c = pga_simidorikawa1999(eq_30,config_simidorikawa1999_crustal)
-#  @test round(sum(S_c),2) == 722.93
+  S_c = gmpe_mf2013(eq_6,config_mf2013_crustal_pgv,grid)
+  @test typeof(S_c) == Array{GroundMotion.Point_pgv_out,1}
+  @test round(sum([S_c[i].pgv for i=1:length(S_c)]),2) == 4.61
+  S_c = gmpe_mf2013(eq_6,config_mf2013_crustal_psa_03,grid)
+  @test typeof(S_c) == Array{GroundMotion.Point_psa_out,1}
+  S_c = gmpe_mf2013(eq_6,config_mf2013_crustal_psa_10,grid)
+  @test round(sum([S_c[i].psa for i=1:length(S_c)]),2) == 5.45
+  S_c = gmpe_mf2013(eq_6,config_mf2013_crustal_psa_30,grid)
+  @test round(sum([S_c[i].psa for i=1:length(S_c)]),2) == 1.43
+  ## PGA modeling on grid M8.5, withoit minpga, ASID false, Dl - constant
+  S_c = gmpe_mf2013(eq_85,config_mf2013_crustal_pga,grid)
+  @test length(S_c) == TEST_GRID_SIZE
+  @test round(sum([S_c[i].pga for i=1:length(S_c)]),2) == 37.6
+  ## PGA modeling on grid M8.5, withoit minpga, ASID true, Dl - constant
+  S_c = gmpe_mf2013(eq_85,config_mf2013_intraplate_pga_asid,grid)
+  @test length(S_c) == TEST_GRID_SIZE
+  @test round(sum([S_c[i].pga for i=1:length(S_c)]),2) == 74.4
+  ## run PGA modeling on grid M6, withoit minpga, ASID false, Dl on GRID
+  S_c = gmpe_mf2013(eq_6,config_mf2013_crustal_pga,grid_dl)
+  @test length(S_c) == TEST_GRID_SIZE
+  @test round(sum([S_c[i].pga for i=1:length(S_c)]),2) == 506.54
+  ## run PGA modeling on grid M8.5, withoit minpga, ASID true, Dl on GRID
+  S_c = gmpe_mf2013(eq_85,config_mf2013_intraplate_pga_asid,grid_dl,Xvf=40)
+  @test length(S_c) == TEST_GRID_SIZE
+  @test round(sum([S_c[i].pga for i=1:length(S_c)]),2) == 4110.09
+  ## PGV,PSA modeling on grid M6, withoit minpga, ASID false, Dl on GRID
+  S_c = gmpe_mf2013(eq_85,config_mf2013_crustal_pgv,grid_dl)
+  @test length(S_c) == TEST_GRID_SIZE
+  @test typeof(S_c) == Array{GroundMotion.Point_pgv_out,1}
+  @test round(sum([S_c[i].pgv for i=1:length(S_c)]),2) == 2989.47
+  S_c = gmpe_mf2013(eq_85,config_mf2013_crustal_psa_03,grid_dl)
+  @test length(S_c) == TEST_GRID_SIZE
+  @test typeof(S_c) == Array{GroundMotion.Point_psa_out,1}
+  @test round(sum([S_c[i].psa for i=1:length(S_c)]),2) == 4177.5
+  ## PGA,PGV,PSA without grid Dl and VS30 by default, ASID=false
+  S_c = gmpe_mf2013(eq_85,config_mf2013_crustal_pga)
+  @test length(S_c) == SIMULATION_ARRAY_SIZE
+  @test round(sum(S_c),2) == 5468.53
+  S_c = gmpe_mf2013(eq_85,config_mf2013_crustal_pgv)
+  @test round(sum(S_c),2) == 7710.7
+  S_c = gmpe_mf2013(eq_85,config_mf2013_crustal_psa_03)
+  @test round(sum(S_c),2) == 13116.13
+  ## PGA without grid Dl=500 VS30 by default, ASID=false
+  S_c = gmpe_mf2013(eq_85,config_mf2013_crustal_pga,Dl=500)
+  @test round(sum(S_c),2) == 5725.89
+  ## PGA without grid Dl by default VS30=500, ASID=false
+  S_c = gmpe_mf2013(eq_85,config_mf2013_crustal_pga,VS30=500)
+  @test round(sum(S_c),2) == 4790.89
+  ## ## PGA without grid Dl and VS30 by default, ASID=true, Xvf=40
+  S_c = gmpe_mf2013(eq_85,config_mf2013_intraplate_pga_asid,Xvf=40)
+  @test round(sum(S_c),2) == 12845.95
 end

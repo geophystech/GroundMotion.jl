@@ -12,6 +12,7 @@ grid_epicenter = [Point_vs30(143.04,51.92,350)]
 eq_4 = Earthquake(143.04,51.92,13,4)
 eq_6 = Earthquake(143.04,51.92,13,6)
 eq_7 = Earthquake(143.04,51.92,13,7)
+eq_85 = Earthquake(143.04,51.92,13,8.5)
 
 ## Auxilary finctions tests
 include("test_auxiliary.jl")

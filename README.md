@@ -4,8 +4,7 @@ The ground motion evaluation module (earthquake seismology)
 ### Build Status
 
 [![Linux/MacOS](https://travis-ci.org/geophystech/GroundMotion.jl.svg?branch=master)](https://travis-ci.org/geophystech/GroundMotion.jl) [![Windows](https://ci.appveyor.com/api/projects/status/0xyromepmwwt0nob?svg=true)](https://ci.appveyor.com/project/geophystech/groundmotion-jl)
-[![Coverage Status](https://coveralls.io/repos/github/geophystech/GroundMotion.jl/badge.svg?branch=master)](https://coveralls.io/github/geophystech/GroundMotion.jl?branch=master)
-
+[![Coverage Status](https://coveralls.io/repos/github/geophystech/GroundMotion.jl/badge.svg?branch=master)](https://coveralls.io/github/geophystech/GroundMotion.jl?branch=master)[![GroundMotion](http://pkg.julialang.org/badges/GroundMotion_0.6.svg)](http://pkg.julialang.org/detail/GroundMotion)[![GroundMotion](http://pkg.julialang.org/badges/GroundMotion_0.7.svg)](http://pkg.julialang.org/detail/GroundMotion)
 
 ### Install
 
@@ -17,24 +16,22 @@ Pkg.add("GroundMotion.jl")
 
 ## Basic principles
 
-The names of GMPE functions specified type of returned values: `{pga/pgv/pgd/psa}_{Name_of_gmpe_function}`. 
-
-For example: `pga_as2008`, where `pga` is return type of ground motion and `as2008` is AS2008 GMPE Model. The same logic for `pgv,pgd,psa`.
+The names of GMPE functions looks like: `gmpe_{Name_of_gmpe_function}`. For example: `gmpe_as2008`, where `as2008` is Abrahamson and Silva 2008 GMPE Model. Configuration for any model (see `examples/*.conf`) has the `ground_motion_type` that can be `PGA`,`PGV`,`PSA` and define the type of output data points.
 
 Each GMPE function has at least 2 methods: for calculation based on input VS30-grid or without any grid.
 
 ### GRID case
 
-GMPE function for each grid's point calculates `{pga/pgv/pgd/psa}` value using latitude, longitude and VS30 [meters per second]. The output data has return in custom type where latitude and longitude are copy from input grid and `{pga/pgv/pgd/psa}` is calculated by function. 
+GMPE function for each grid's point calculates `{pga/pgv/psa}` values using `latitude`, `longitude` [degrees for WGS84 ellipsoid] and `VS30` [m/s]. The output data has return in custom type (depends by config) where latitude and longitude are copy from input grid and `pga/pgv/pgd/psa` is calculated by function. 
 
-For example: function `pga_as2008` with parameters
+For example: function `gmpe_as2008` with parameters
 ```julia
 pga_as2008(eq::Earthquake,
            config_as2008::Params_as2008,
            grid::Array{Point_vs30},
            min_val::Number)
 ```
-return 1-d `Array{Point_pga_out}` with points based on input grid with `pga > min_val` (`pga` is Acceleration of gravity in percent (%g) rounded to `ggg.gg`)
+where `ground_motion_type = "PGA"` at `config` return 1-d `Array{Point_pga_out}` with points based on input grid with `pga > min_val` (`pga` is Acceleration of gravity in percent (%g) rounded to `ggg.gg`).
 
 
 ### Without grid
@@ -48,7 +45,7 @@ pga_as2008(eq::Earthquake,
            VS30::Number=350,
            distance::Int64=1000)
 ```
-output be `Array{Float64}` with `1:distance` values of `pga` (also rounded to `ggg.gg`).
+where `ground_motion_type = "PGA"` at `config` return `Array{Float64}` with `1:distance` values of `pga` (also rounded to `ggg.gg`).
 
 ## Short example:
 ```julia
@@ -60,7 +57,7 @@ grid = read_vs30_file("Downloads/web/testvs30.txt")
 # set earthquake location
 eq = Earthquake(143.04,51.92,13,6)
 # run AS2008 PGA modeling on GRID
-out_grid = pga_as2008(eq,config_as2008,grid)
+out_grid = gmpe_as2008(eq,config_as2008,grid)
 # run AS2008 PGA FOR PLOTTING with VS30=30 [m/s^2], distance=1000 [km] by default.
 simulation = pga_as2008(eq,config_as2008)
 ```

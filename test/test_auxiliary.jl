@@ -11,6 +11,10 @@
   @test typeof(A) == Array{Float64,2}
   @test length(A) == 51
   @test round(sum(A[:,3]),2) == 12400.0
+  A = convert_to_float_array(grid_dl)
+  @test typeof(A) == Array{Float64,2}
+  @test length(A) == 68
+  @test round(sum(A[:,4]),2) == 15300.0
   A = convert_to_float_array(pga_grid)
   @test typeof(A) == Array{Float64,2}
   @test length(A) == 51
