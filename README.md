@@ -147,6 +147,8 @@ Actually they are not presented at code.
 
 ## Si and Midorikawa 1999 GMPE Model
 
+![si-midorikawa-1999](https://user-images.githubusercontent.com/3518847/35567902-c89220ac-061a-11e8-98f1-0deb520f1be2.jpg)
+
 ### References 
 
 1. Si, Hongjun, and Saburoh Midorikawa. "New attenuation relations for peak ground acceleration and velocity considering effects of fault type and site condition." Proceedings of twelfth world conference on earthquake engineering. 2000.
@@ -173,6 +175,8 @@ See `examples/si-midorikawa-1999.conf`.
 **X - is a distance to hypocenter**
 
 ## Morikawa and Fujiwara 2013 GMPE Model
+
+![mf2013](https://user-images.githubusercontent.com/3518847/35567875-ad83ebba-061a-11e8-8023-7bb372176042.jpg)
 
 ### Reference
 
