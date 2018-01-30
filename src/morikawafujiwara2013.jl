@@ -40,8 +40,8 @@ Output will be 1-d `Array{Float64}` with `1:distance` values of `pga`,`psa` (tha
 
 **EXAMPLES:**
 ```  
-gmpe_mf2013(eq,config_mf2013,grid) # for PGA on GRID
-gmpe_mf2013(eq,config_mf2013) # for without input grid
+gmpe_mf2013(eq,config_mf2013,grid) # for PGA,PGV,PSA on GRID
+gmpe_mf2013(eq,config_mf2013) # for PGA,PGV,PSA without input grid
 ```
 
 **Model parameters**

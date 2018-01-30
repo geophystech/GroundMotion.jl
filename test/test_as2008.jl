@@ -9,7 +9,7 @@
   @test length(A) == TEST_GRID_SIZE
   @test round(sum([A[i].pga for i=1:length(A)]),2) == 4.39
   # run PGA modeling on grid with minpga M6.0
-  A = gmpe_as2008(eq_6,config_as2008_pga,grid,0.22)
+  A = gmpe_as2008(eq_6,config_as2008_pga,grid,min_val=0.22)
   @test length(A) == WITH_MINPGA
   @test round(sum([A[i].pga for i=1:length(A)]),2) == 2.86
   # run PGA modeling with M4.0
@@ -25,7 +25,7 @@
   # run PGA Modeling M=7 
   @test round(sum(gmpe_as2008(eq_7,config_as2008_pga)),2) == 1486.84
   # run PGA Modeling M=7 with VS30 = 900
-  @test round(sum(gmpe_as2008(eq_7,config_as2008_pga,900)),2) == 1031.1
+  @test round(sum(gmpe_as2008(eq_7,config_as2008_pga,VS30=900)),2) == 1031.1
   # run PGA Modeling M=7 with VS30 = 1600 
-  @test round(sum(gmpe_as2008(eq_7,config_as2008_pga,1600)),2) == 817.23
+  @test round(sum(gmpe_as2008(eq_7,config_as2008_pga,VS30=1600)),2) == 817.23
 end 

@@ -15,12 +15,12 @@
   @test length(S_intra) == TEST_GRID_SIZE
   @test round(sum([S_intra[i].pga for i=1:length(S_intra)]),2) == 13.9
   ## run PGA modeling on grid with minpga Depth <= 30 M6.0
-  S_c = gmpe_simidorikawa1999(eq_6,config_simidorikawa1999_crustal_pga,grid,0.34)
+  S_c = gmpe_simidorikawa1999(eq_6,config_simidorikawa1999_crustal_pga,grid,min_val=0.34)
   @test length(S_c) == WITH_MINPGA
   @test round(sum([S_c[i].pga for i=1:length(S_c)]),2) == 4.61
   ## run PGA modeling on grid with minpga Depth > 30 M6.0
   eq_30 = Earthquake(143.04,51.92,35,6.0)
-  S_c = gmpe_simidorikawa1999(eq_30,config_simidorikawa1999_crustal_pga,grid,0.15)
+  S_c = gmpe_simidorikawa1999(eq_30,config_simidorikawa1999_crustal_pga,grid,min_val=0.15)
   @test length(S_c) == WITH_MINPGA
   @test round(sum([S_c[i].pga for i=1:length(S_c)]),2) == 2.04
   ## run PGA modeling for plotting Depth <= 30 M6.0

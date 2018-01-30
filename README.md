@@ -12,8 +12,6 @@ The ground motion evaluation module (earthquake seismology)
 Pkg.add("GroundMotion.jl")
 ```
 
-**WORK IN PROGRESS!**
-
 ## Basic principles
 
 The names of GMPE functions looks like: `gmpe_{Name_of_gmpe_function}`. For example: `gmpe_as2008`, where `as2008` is Abrahamson and Silva 2008 GMPE Model. Configuration for any model (see `examples/*.conf`) has the `ground_motion_type` that can be `PGA`,`PGV`,`PSA` and define the type of output data points.
@@ -28,7 +26,7 @@ For example: function `gmpe_as2008` with parameters
 ```julia
 pga_as2008(eq::Earthquake,
            config_as2008::Params_as2008,
-           grid::Array{Point_vs30},
+           grid::Array{Point_vs30};
            min_val::Number)
 ```
 where `ground_motion_type = "PGA"` at `config`, return 1-d is `Array{Point_pga_out}` with points based on input grid and `pga > min_val` (`pga` is Acceleration of gravity in percent (%g) rounded to `ggg.gg`).
@@ -41,7 +39,7 @@ In case of without any grid GMPE functions return simple 1-d `Array{Float64}` wi
 Example:
 ```julia
 pga_as2008(eq::Earthquake,
-           config::Params_as2008,
+           config::Params_as2008;
            VS30::Number=350,
            distance::Int64=1000)
 ```
@@ -115,6 +113,8 @@ Latitude and longitude assumes degrees for WGS84 ellipsoid. Depth in km. `Mw` us
 
 ## Abrahamson and Silva 2008 GMPE Model
  
+**WORK IN PROGRESS!**
+
 ### Reference
 
 Abrahamson, Norman, and Walter Silva. "Summary of the Abrahamson & Silva NGA ground-motion relations." Earthquake spectra 24.1 (2008): 67-97.
@@ -124,14 +124,15 @@ Abrahamson, Norman, and Walter Silva. "Summary of the Abrahamson & Silva NGA gro
 ## ON GRID
 gmpe_as2008(eq::Earthquake,
            config_as2008::Params_as2008,
-           grid::Array{Point_vs30,N},
+           grid::Array{Point_vs30};
            min_val::Number)
 ## Without grid
 gmpe_as2008(eq::Earthquake,
-           config::Params_as2008,
+           config::Params_as2008;
            VS30::Number=350,
            distance::Int64=1000)
 ```
+Keyword arguments: `min_val`,`VS30`,`distance`.
 
 ### Model Parameters
 
@@ -159,14 +160,15 @@ Actually they are not presented at code.
 ## ON GRID
 gmpe_simidorikawa1999(eq::Earthquake,
                      config::Params_simidorikawa1999,
-                     grid::Array{Point_vs30,N},
+                     grid::Array{Point_vs30};
                      min_val::Number)
 ## Without grid
 gmpe_simidorikawa1999(eq::Earthquake,
-                     config::Params_simidorikawa1999,
+                     config::Params_simidorikawa1999;
                      VS30::Number=350,
                      distance::Int64=1000)
 ```
+Keyword arguments: `min_val`,`VS30`,`distance`.
 
 ### Model Parameters
 
