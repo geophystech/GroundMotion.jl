@@ -14,27 +14,27 @@ Pkg.add("GroundMotion.jl")
 
 ## Basic principles
 
-The names of GMPE functions looks like: `gmpe_{Name_of_gmpe_function}`. For example: `gmpe_as2008`, where `as2008` is Abrahamson and Silva 2008 GMPE Model. Configuration for any model (see `examples/*.conf`) has the `ground_motion_type` that can be `PGA`,`PGV`,`PSA` and define the type of output data points.
+Names of GMPE functions looks like: `gmpe_{Name_of_gmpe_function}`. For example: `gmpe_as2008`, where `as2008` is Abrahamson and Silva 2008 GMPE Model. The configuration for a model (see `examples/*.conf`) has `ground_motion_type` that can be `PGA`,`PGV`,`PSA` and define the type of output data points.
 
 Each GMPE function has at least 2 methods: for calculation based on input VS30-grid or without any grid.
 
 ### GRID case
 
-GMPE function for each grid's point calculates `{pga/pgv/psa}` values using `latitude`, `longitude` [degrees for WGS84 ellipsoid] and `VS30` [m/s]. The output data has return in custom type (depends by config) where latitude and longitude are copy from input grid and `pga/pgv/pgd/psa` is calculated by function. 
+The GMPE function for each grid's point calculates `{pga/pgv/psa}` values using `latitude`, `longitude` [degrees for WGS84 ellipsoid] and `VS30` [m/s]. The output data has return in custom type (depends by config) where latitude and longitude are copy from input grid and `pga/pgv/pgd/psa` is calculated by function. 
 
-For example: function `gmpe_as2008` with parameters
+For example: the function `gmpe_as2008` with parameters
 ```julia
 pga_as2008(eq::Earthquake,
            config_as2008::Params_as2008,
            grid::Array{Point_vs30};
            min_val::Number)
 ```
-where `ground_motion_type = "PGA"` at `config`, return 1-d is `Array{Point_pga_out}` with points based on input grid and `pga > min_val` (`pga` is Acceleration of gravity in percent (%g) rounded to `ggg.gg`).
+where `ground_motion_type = "PGA"` at `config`, returns 1-d is `Array{Point_pga_out}` with points based on input grid and `pga > min_val` (`pga` is Acceleration of gravity in percent (%g) rounded to `ggg.gg`).
 
 
 ### Without grid
 
-In case of without any grid GMPE functions return simple 1-d `Array{Float64}` with `{pga/pgv/pgd/psa}` data. Each `{pga/pgv/pgd/psa}` value in output array is from epicenter to `distance` with `1` [km] step perpendicularly to the epicenter.
+In case of without any grid GMPE functions return simple 1-d `Array{Float64}` with `{pga/pgv/pgd/psa}` data. It calculates from epicenter to `distance` with `1` [km] step perpendicularly to the epicenter.
 
 Example:
 ```julia
