@@ -26,12 +26,6 @@ function read_vs30_file(filename::String)
   return B
 end
 ## convert Array{Float64,2} array to Array{GroundMotion.Point_vs30,1}
-"""
-convert_to_float_array(B::Array{T,N})
-  where T is Point_{pga,pgv,pgd}_out, Point_vs30
-
-  Convert 1-d array of custom type to Array{Float64}(N,X)
-"""
 function convert_to_point_vs30(A::Array{Float64,2})
   vs30_row_num = length(A[:,1])
   B = Array{Point_vs30}(0)

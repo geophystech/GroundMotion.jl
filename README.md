@@ -100,6 +100,8 @@ Use `Base.writedlm` to write XYZ (`lon`,`lat`,`pga/pgv/pgd/psa`) data to text fi
 writedlm("Downloads/xyz.txt", B) # where B is N×3 Array{Float64}
 ```
 
+Use `convert_to_point_vs30` to convert Array{Float64,2} array to Array{GroundMotion.Point_vs30,1}
+
 ## Earthquake location data
 
 Lets define `lat`,`lon`,`depth`,`Ml`,`Mw`:
