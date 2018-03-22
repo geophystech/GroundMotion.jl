@@ -6,6 +6,9 @@
   include("../examples/as2008.conf")
   pga_grid = gmpe_as2008(eq_6,config_as2008_pga,grid)
   @test typeof(pga_grid) == Array{GroundMotion.Point_pga_out,1}
+  # convert to Point_vs30
+  A = convert_to_point_vs30(raw_grid)
+  @test length(A) == 17
   # convert to float array
   A = convert_to_float_array(grid)
   @test typeof(A) == Array{Float64,2}

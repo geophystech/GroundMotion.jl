@@ -6,6 +6,7 @@ WITH_MINPGA = 8
 SIMULATION_ARRAY_SIZE = 1000
 # load vs30 grid
 grid = read_vs30_file("testvs30.txt")
+raw_grid = readdlm("testvs30.txt")
 grid_dl = read_vs30_dl_file("testvs30dl.txt")
 grid_epicenter = [Point_vs30(143.04,51.92,350)]
 # set earthquake location

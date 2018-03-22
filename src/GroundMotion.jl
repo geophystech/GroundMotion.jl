@@ -30,6 +30,7 @@ module GroundMotion
     Params_mf2013,
     # functions
     read_vs30_file,
+    convert_to_point_vs30,
     read_vs30_dl_file,
     convert_to_float_array,
     gmpe_as2008,
