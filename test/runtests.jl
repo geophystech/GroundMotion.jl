@@ -1,4 +1,4 @@
-using Base.Test, GroundMotion
+using Test, GroundMotion
 
 # constants
 TEST_GRID_SIZE = 17
