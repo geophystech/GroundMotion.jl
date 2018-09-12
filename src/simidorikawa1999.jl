@@ -57,7 +57,7 @@ function gmpe_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,gr
   c = 0.006*10^(0.5*magnitude)
   # init output_data
   if config.ground_motion_type == "PGA"
-    output_data = Array{Point_pga_out}(0)
+    output_data = Array{Point_pga_out}(undef,0)
     out_type = Point_pga_out
   end
   # main cycle by grid points
@@ -76,7 +76,7 @@ function gmpe_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,gr
               1.6*log10(r_rup + c) - config.k*r_rup + log_ARA)
     end
     if config.ground_motion_type == "PGA"
-      motion = round(((A/100)/g_global * 100),2)
+      motion = round(((A/100)/g_global * 100),digits=2)
     end
     if motion >= min_val
       output_data = push!(output_data, out_type(grid[i].lon,grid[i].lat,motion))
@@ -99,7 +99,7 @@ function gmpe_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999;VS
   # \logARA for VS30
   log_ARA = 1.35 - 0.47*log10(VS30)
   # init output_data
-  output_data = Array{Float64}(0)
+  output_data = Array{Float64}(undef,0)
   # main cycle by grid points
   for i=1:distance
     # rrup the same as X in Si-Midorikawa (1999) formulae
@@ -113,7 +113,7 @@ function gmpe_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999;VS
               1.6*log10(r_rup + c) - config.k*r_rup + log_ARA)
     end
     if config.ground_motion_type == "PGA"
-      motion = round(((A/100)/g_global * 100),2)
+      motion = round(((A/100)/g_global * 100),digits=2)
     end
     output_data = push!(output_data, motion)
   end

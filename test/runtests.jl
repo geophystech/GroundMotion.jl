@@ -1,4 +1,4 @@
-using Test, GroundMotion
+using Test, DelimitedFiles, GroundMotion
 
 # constants
 TEST_GRID_SIZE = 17

@@ -63,13 +63,13 @@ function gmpe_mf2013(eq::Earthquake,config::Params_mf2013,grid::Array{Point_vs30
   Gd = config.pd*log10(max(config.Dlmin,Dl)/config.D0)
   # init output_data
   if config.ground_motion_type == "PGA"
-    output_data = Array{Point_pga_out}(0)
+    output_data = Array{Point_pga_out}(undef,0)
     out_type = Point_pga_out
   elseif config.ground_motion_type == "PGV"
-    output_data = Array{Point_pgv_out}(0)
+    output_data = Array{Point_pgv_out}(undef,0)
     out_type = Point_pgv_out
   elseif config.ground_motion_type == "PSA"
-    output_data = Array{Point_psa_out}(0)
+    output_data = Array{Point_psa_out}(undef,0)
     out_type = Point_psa_out
   end
   # main cycle by grid points
@@ -95,7 +95,7 @@ function gmpe_mf2013(eq::Earthquake,config::Params_mf2013,grid::Array{Point_vs30
     end
     # output depend on type of motion
     if config.ground_motion_type == "PGA" || config.ground_motion_type == "PSA"
-      motion = round(((A/100)/g_global * 100),2) ## convert cm/c^2 to %g
+      motion = round(((A/100)/g_global * 100),digits=2) ## convert cm/c^2 to %g
     elseif config.ground_motion_type == "PGV"
       motion = A
     end
@@ -118,13 +118,13 @@ function gmpe_mf2013(eq::Earthquake,config::Params_mf2013,grid::Array{Point_vs30
   aMw = config.a*magnitude
   # init output_data
   if config.ground_motion_type == "PGA"
-    output_data = Array{Point_pga_out}(0)
+    output_data = Array{Point_pga_out}(undef,0)
     out_type = Point_pga_out
   elseif config.ground_motion_type == "PGV"
-    output_data = Array{Point_pgv_out}(0)
+    output_data = Array{Point_pgv_out}(undef,0)
     out_type = Point_pgv_out
   elseif config.ground_motion_type == "PSA"
-    output_data = Array{Point_psa_out}(0)
+    output_data = Array{Point_psa_out}(undef,0)
     out_type = Point_psa_out
   end
   # main cycle by grid points
@@ -151,7 +151,7 @@ function gmpe_mf2013(eq::Earthquake,config::Params_mf2013,grid::Array{Point_vs30
     end
     # output depend on type of motion
     if config.ground_motion_type == "PGA" || config.ground_motion_type == "PSA"
-      motion = round(((A/100)/g_global * 100),2) ## convert cm/c^2 to %g
+      motion = round(((A/100)/g_global * 100),digits=2) ## convert cm/c^2 to %g
     elseif config.ground_motion_type == "PGV"
       motion = A
     end
@@ -173,7 +173,7 @@ function gmpe_mf2013(eq::Earthquake,config::Params_mf2013;VS30::Number=350,dista
   # define Gd out of loop
   Gd = config.pd*log10(max(config.Dlmin,Dl)/config.D0)
   # init output array
-  output_data = Array{Float64}(0)
+  output_data = Array{Float64}(undef,0)
   # main cycle
   for i=1:distance
     # rrup the same as X in Morikawa Fujiwara 2013 formulae
@@ -196,7 +196,7 @@ function gmpe_mf2013(eq::Earthquake,config::Params_mf2013;VS30::Number=350,dista
     end
     # output depend on type of motion
     if config.ground_motion_type == "PGA" || config.ground_motion_type == "PSA"
-      motion = round(((A/100)/g_global * 100),2) ## convert cm/c^2 to %g
+      motion = round(((A/100)/g_global * 100),digits=2) ## convert cm/c^2 to %g
     elseif config.ground_motion_type == "PGV"
       motion = A
     end

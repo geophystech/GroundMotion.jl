@@ -19,7 +19,7 @@
 function read_vs30_file(filename::String)
   A = readdlm(filename)
   vs30_row_num = length(A[:,1])
-  B = Array{Point_vs30}(0)
+  B = Array{Point_vs30}(undef,0)
   for i=1:vs30_row_num
     B = push!(B,Point_vs30(A[i,1],A[i,2],A[i,3]))
   end
@@ -28,7 +28,7 @@ end
 ## convert Array{Float64,2} array to Array{GroundMotion.Point_vs30,1}
 function convert_to_point_vs30(A::Array{Float64,2})
   vs30_row_num = length(A[:,1])
-  B = Array{Point_vs30}(0)
+  B = Array{Point_vs30}(undef,0)
   for i=1:vs30_row_num
     B = push!(B,Point_vs30(A[i,1],A[i,2],A[i,3]))
   end
@@ -38,7 +38,7 @@ end
 function read_vs30_dl_file(filename::String)
   A = readdlm(filename)
   vs30_row_num = length(A[:,1])
-  B = Array{Point_vs30_dl}(0)
+  B = Array{Point_vs30_dl}(undef,0)
   for i=1:vs30_row_num
     B = push!(B,Point_vs30_dl(A[i,1],A[i,2],A[i,3],A[i,4]))
   end
@@ -52,7 +52,7 @@ convert_to_float_array(B::Array{T,N})
   Convert 1-d array of custom type to Array{Float64}(N,X)
 """
 function convert_to_float_array(B::Array{Point_pga_out})
-  A = Array{Float64}(length(B),3)
+  A = Array{Float64}(undef,length(B),3)
   for i=1:length(B)
    A[i,1] = B[i].lon
    A[i,2] = B[i].lat
@@ -61,7 +61,7 @@ function convert_to_float_array(B::Array{Point_pga_out})
   return A
 end
 function convert_to_float_array(B::Array{Point_vs30})
-  A = Array{Float64}(length(B),3)
+  A = Array{Float64}(undef,length(B),3)
   for i=1:length(B)
    A[i,1] = B[i].lon
    A[i,2] = B[i].lat
@@ -70,7 +70,7 @@ function convert_to_float_array(B::Array{Point_vs30})
 return A
 end
 function convert_to_float_array(B::Array{Point_vs30_dl})
-  A = Array{Float64}(length(B),4)
+  A = Array{Float64}(undef,length(B),4)
   for i=1:length(B)
    A[i,1] = B[i].lon
    A[i,2] = B[i].lat

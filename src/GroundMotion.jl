@@ -18,6 +18,7 @@ module GroundMotion
   # This source contains a module settings. Please find types and functions in nested source files (see include).
   # The distance() function is used, see https://github.com/JuliaGeo/Geodesy.jl for further read
   using 
+    DelimitedFiles,
     Geodesy
 
   export
