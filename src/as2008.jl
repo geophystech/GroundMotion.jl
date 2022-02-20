@@ -63,7 +63,7 @@ function gmpe_as2008(eq::Earthquake,config::Params_as2008,grid::Array{Point_vs30
   for i=1:vs30_row_num
     # rrup
     current_point = LatLon(grid[i].lat,grid[i].lon)
-    r_rup = sqrt((distance(current_point,epicenter)/1000)^2 + eq.depth^2)
+    r_rup = sqrt((euclidean_distance(current_point,epicenter)/1000)^2 + eq.depth^2)
     # F1
     if magnitude <= config.c1
       f1 = config.a1 + config.a4 * (magnitude - config.c1) +
@@ -106,6 +106,7 @@ function gmpe_as2008(eq::Earthquake,config::Params_as2008,grid::Array{Point_vs30
   end
   return output_data
 end
+
 ## AS2008 PGA modeling for PLOTTING
 function gmpe_as2008(eq::Earthquake,config::Params_as2008;VS30::Number=350,distance::Number=1000)
   eq.moment_mag == 0 ? magnitude = eq.local_mag : magnitude = eq.moment_mag

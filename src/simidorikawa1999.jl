@@ -65,7 +65,7 @@ function gmpe_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,gr
     # rrup the same as X in Si-Midorikawa (1999) formulae
     # eq.depth the same as D in in Si-Midorikawa (1999) formulae
     current_point = LatLon(grid[i].lat,grid[i].lon)
-    r_rup = sqrt((distance(current_point,epicenter)/1000)^2 + eq.depth^2)
+    r_rup = sqrt((euclidean_distance(current_point,epicenter)/1000)^2 + eq.depth^2)
     # \logARA for VS30
     log_ARA = 1.35 - 0.47*log10(grid[i].vs30)
     # A in cm/s^2
@@ -84,6 +84,7 @@ function gmpe_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,gr
   end
   return output_data
 end
+
 ## Si-Midorikawa (1999) PGA modeling for PLOTTING
 function gmpe_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999;VS30::Number=350,distance::Number=1000)
   #vs30_row_num = length(grid[:,1])

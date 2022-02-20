@@ -77,7 +77,7 @@ function gmpe_mf2013(eq::Earthquake,config::Params_mf2013,grid::Array{Point_vs30
     # rrup the same as X in Morikawa Fujiwara 2013 formulae
     # eq.depth the same as D in Morikawa Fujiwara 2013 formulae
     current_point = LatLon(grid[i].lat,grid[i].lon)
-    r_rup = sqrt((distance(current_point,epicenter)/1000)^2 + eq.depth^2)
+    r_rup = sqrt((euclidean_distance(current_point,epicenter)/1000)^2 + eq.depth^2)
     # \logA where A in cm/s^2 (pga,psa) or cm/s (pgv)
     log_A = aMw + config.b*r_rup + config.c - log10(r_rup + config.d*10^(config.e*magnitude))
     # Amplification by Deep Sedimentary Layers
@@ -105,6 +105,7 @@ function gmpe_mf2013(eq::Earthquake,config::Params_mf2013,grid::Array{Point_vs30
   end
   return output_data
 end
+
 ## Morikawa Fujiwara (2013) PGA,PGV,PSA modeling ON GRID, Dl provided in GRID
 function gmpe_mf2013(eq::Earthquake,config::Params_mf2013,grid::Array{Point_vs30_dl};min_val::Number=0,Xvf::Number=0)
   vs30_row_num = length(grid[:,1])
@@ -132,7 +133,7 @@ function gmpe_mf2013(eq::Earthquake,config::Params_mf2013,grid::Array{Point_vs30
     # rrup the same as X in Morikawa Fujiwara 2013 formulae
     # eq.depth the same as D in Morikawa Fujiwara 2013 formulae
     current_point = LatLon(grid[i].lat,grid[i].lon)
-    r_rup = sqrt((distance(current_point,epicenter)/1000)^2 + eq.depth^2)
+    r_rup = sqrt((euclidean_distance(current_point,epicenter)/1000)^2 + eq.depth^2)
     # \logA where A in cm/s^2 (pga,psa) or cm/s (pgv)
     log_A = aMw + config.b*r_rup + config.c - log10(r_rup + config.d*10^(config.e*magnitude))
     # Amplification by Deep Sedimentary Layers
@@ -161,6 +162,7 @@ function gmpe_mf2013(eq::Earthquake,config::Params_mf2013,grid::Array{Point_vs30
   end
   return output_data
 end
+
 ## Morikawa Fujiwara (2013) PGA modeling ON GRID, Dl = constant
 function gmpe_mf2013(eq::Earthquake,config::Params_mf2013;VS30::Number=350,distance::Number=1000,Dl::Number=250,Xvf::Number=0)
   # define magnitude
