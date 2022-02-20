@@ -1,0 +1,13 @@
+authors = ["Andrey Stepnov <a.stepnov@geophystech.ru>"]
+name = "GroundMotion.jl"
+uuid = "787fd7a8-e7e3-4b59-bc4b-43f0e4bfbf20"
+license = "Apache License 2.0"
+
+[deps]
+Geodesy = "0ef565a4-170c-5f04-8de2-149903a85f3d"
+
+[compat]
+Geodesy = "1.0.1"
+julia = "1.5"
+
+
