@@ -5,6 +5,7 @@ license = "Apache License 2.0"
 
 [deps]
 Geodesy = "0ef565a4-170c-5f04-8de2-149903a85f3d"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [compat]
 Geodesy = "1.0.1"
