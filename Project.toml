@@ -1,5 +1,5 @@
 authors = ["Andrey Stepnov <a.stepnov@geophystech.ru>"]
-name = "GroundMotion.jl"
+name = "GroundMotion"
 uuid = "787fd7a8-e7e3-4b59-bc4b-43f0e4bfbf20"
 license = "Apache License 2.0"
 
