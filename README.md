@@ -3,7 +3,6 @@ The ground motion evaluation module (earthquake seismology)
 
 ### Build Status
 ![CI](https://github.com/geophystech/GroundMotion.jl/actions/workflows/ci.yml/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/geophystech/GroundMotion.jl/badge.svg?branch=master)](https://coveralls.io/github/geophystech/GroundMotion.jl?branch=master)
 [![codecov](https://codecov.io/gh/geophystech/GroundMotion.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/geophystech/GroundMotion.jl)
 
 
