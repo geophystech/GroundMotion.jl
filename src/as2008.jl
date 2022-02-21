@@ -42,8 +42,7 @@ gmpe_as2008(eq,config_as2008) # for without input grid
 
 Please, see `examples/as-2008.conf`
 """
-## AS2008 PGA modeling ON GRID
-function gmpe_as2008(eq::Earthquake,config::Params_as2008,grid::Array{Point_vs30};min_val::Number=0)
+function gmpe_as2008(eq::Earthquake,config::Params_as2008,grid::Array{Point_vs30};min_val::Number=0) # AS2008 PGA modeling ON GRID
   vs30_row_num = length(grid[:,1])
   eq.moment_mag == 0 ? magnitude = eq.local_mag : magnitude = eq.moment_mag
   epicenter = LatLon(eq.lat, eq.lon)
@@ -107,8 +106,8 @@ function gmpe_as2008(eq::Earthquake,config::Params_as2008,grid::Array{Point_vs30
   return output_data
 end
 
-## AS2008 PGA modeling for PLOTTING
-function gmpe_as2008(eq::Earthquake,config::Params_as2008;VS30::Number=350,distance::Number=1000)
+
+function gmpe_as2008(eq::Earthquake,config::Params_as2008;VS30::Number=350,distance::Number=1000) #AS2008 PGA modeling for PLOTTING
   eq.moment_mag == 0 ? magnitude = eq.local_mag : magnitude = eq.moment_mag
   # define t6
   if magnitude < 5.5

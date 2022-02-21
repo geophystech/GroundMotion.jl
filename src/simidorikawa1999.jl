@@ -42,8 +42,8 @@ gmpe_simidorikawa1999(eq,config_simidorikawa1999_intraplate) # for PGA without i
 
 Please, see `examples/si-midorikawa-1999.conf`
 """
-## Si-Midorikawa (1999) PGA modeling ON GRID
 function gmpe_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,grid::Array{Point_vs30};min_val::Number=0)
+  ## Si-Midorikawa (1999) PGA modeling ON GRID
   vs30_row_num = length(grid[:,1])
   eq.moment_mag == 0 ? magnitude = eq.local_mag : magnitude = eq.moment_mag
   epicenter = LatLon(eq.lat, eq.lon)
@@ -85,8 +85,8 @@ function gmpe_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999,gr
   return output_data
 end
 
-## Si-Midorikawa (1999) PGA modeling for PLOTTING
 function gmpe_simidorikawa1999(eq::Earthquake,config::Params_simidorikawa1999;VS30::Number=350,distance::Number=1000)
+  ## Si-Midorikawa (1999) PGA modeling for PLOTTING
   #vs30_row_num = length(grid[:,1])
   eq.moment_mag == 0 ? magnitude = eq.local_mag : magnitude = eq.moment_mag
   # define g_global

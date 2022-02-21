@@ -48,8 +48,8 @@ gmpe_mf2013(eq,config_mf2013) # for PGA,PGV,PSA without input grid
 
 Please, see `examples/morikawa-fujiwara-2013.conf`
 """
-## Morikawa Fujiwara (2013) PGA,PGV,PSA modeling ON GRID, Dl = constant
 function gmpe_mf2013(eq::Earthquake,config::Params_mf2013,grid::Array{Point_vs30};min_val::Number=0,Dl::Number=250,Xvf::Number=0)
+  ## Morikawa Fujiwara (2013) PGA,PGV,PSA modeling ON GRID, Dl = constant
   vs30_row_num = length(grid[:,1])
   # define magnitude and epicenter
   eq.moment_mag == 0 ? magnitude = eq.local_mag : magnitude = eq.moment_mag
@@ -106,8 +106,8 @@ function gmpe_mf2013(eq::Earthquake,config::Params_mf2013,grid::Array{Point_vs30
   return output_data
 end
 
-## Morikawa Fujiwara (2013) PGA,PGV,PSA modeling ON GRID, Dl provided in GRID
 function gmpe_mf2013(eq::Earthquake,config::Params_mf2013,grid::Array{Point_vs30_dl};min_val::Number=0,Xvf::Number=0)
+  ## Morikawa Fujiwara (2013) PGA,PGV,PSA modeling ON GRID, Dl provided in GRID
   vs30_row_num = length(grid[:,1])
   # define magnitude and epicenter
   eq.moment_mag == 0 ? magnitude = eq.local_mag : magnitude = eq.moment_mag
@@ -163,8 +163,8 @@ function gmpe_mf2013(eq::Earthquake,config::Params_mf2013,grid::Array{Point_vs30
   return output_data
 end
 
-## Morikawa Fujiwara (2013) PGA modeling ON GRID, Dl = constant
 function gmpe_mf2013(eq::Earthquake,config::Params_mf2013;VS30::Number=350,distance::Number=1000,Dl::Number=250,Xvf::Number=0)
+  ## Morikawa Fujiwara (2013) PGA modeling ON GRID, Dl = constant
   # define magnitude
   eq.moment_mag == 0 ? magnitude = eq.local_mag : magnitude = eq.moment_mag
   magnitude = min(magnitude,config.Mw0)

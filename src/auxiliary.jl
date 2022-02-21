@@ -15,7 +15,12 @@
 
 ## initial release by Andrey Stepnov, email: a.stepnov@geophsytech.ru
 
-## read VS30 file
+"""
+read VS30 file
+
+IN: dlm VS30 file LON LAT VS30
+OUT: Point_vs30 array
+"""
 function read_vs30_file(filename::String)
   A = readdlm(filename)
   vs30_row_num = length(A[:,1])
@@ -25,7 +30,10 @@ function read_vs30_file(filename::String)
   end
   return B
 end
-## convert Array{Float64,2} array to Array{GroundMotion.Point_vs30,1}
+
+"""
+convert Array{Float64,2} array to Array{GroundMotion.Point_vs30,1}
+"""
 function convert_to_point_vs30(A::Array{Float64,2})
   vs30_row_num = length(A[:,1])
   B = Array{Point_vs30}(undef,0)
@@ -34,7 +42,13 @@ function convert_to_point_vs30(A::Array{Float64,2})
   end
   return B
 end
-## read VS30 file with Dl column
+
+"""
+read VS30 file
+
+IN: dlm VS30 file LON LAT VS30 DL
+OUT: Point_vs30_dl array
+"""
 function read_vs30_dl_file(filename::String)
   A = readdlm(filename)
   vs30_row_num = length(A[:,1])
