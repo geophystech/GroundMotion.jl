@@ -1,5 +1,5 @@
 ## LICENSE
-##   Copyright (c) 2018 GEOPHYSTECH LLC
+##   Copyright (c) 2018-2022 GEOPHYSTECH LLC
 ##
 ##   Licensed under the Apache License, Version 2.0 (the "License");
 ##   you may not use this file except in compliance with the License.

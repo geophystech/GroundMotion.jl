@@ -1,5 +1,5 @@
 ## LICENSE
-##   Copyright (c) 2018 GEOPHYSTECH LLC
+##   Copyright (c) 2018-2022 GEOPHYSTECH LLC
 ##
 ##   Licensed under the Apache License, Version 2.0 (the "License");
 ##   you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 ## initial release by Andrey Stepnov, email: a.stepnov@geophsytech.ru
 module GroundMotion
   # This source contains a module settings. Please find types and functions in nested source files (see include).
-  # The distance() function is used, see https://github.com/JuliaGeo/Geodesy.jl for further read
+  # The euclidean_distance() function is used, see https://github.com/JuliaGeo/Geodesy.jl for further read
   using 
     DelimitedFiles,
     Geodesy
