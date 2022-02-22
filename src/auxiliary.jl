@@ -44,6 +44,46 @@ function convert_to_point_vs30(A::Array{Float64,2})
 end
 
 """
+convert Point_pga_out to Point_ssi_out (%g.gg to SSI intensity)
+
+Please NOTE this function makes it possible to result different length of array in case of filter out negative and zero SSI values.
+
+"""
+function convert_from_pga_to_ssi(A::Array{Point_pga_out}; alpha=2.5, beta=1.89)::Array{Point_ssi_out}
+  g_global = 9.81
+  B = Array{Point_ssi_out}(undef,0)
+  for i in A
+    # process only non-zero values
+    if i.pga > 0
+      # convert %g to sm/sec^2
+      pga_sm = i.pga * g_global
+      # convert to SSI
+      intensity = log10(pga_sm)*alpha + beta 
+      # filter out negative intensity
+      if intensity > 0
+        intensity = round(intensity, digits=2)
+        push!(B, Point_ssi_out(i.lon, i.lat, intensity))
+      end
+    end
+  end
+  return B
+end
+
+"""
+convert Point_ssi_out to Point_pga_out (SSI intensity to %g.gg)
+"""
+function convert_from_ssi_to_pga(A::Array{Point_ssi_out}; alpha=2.5, beta=1.89)::Array{Point_pga_out}
+  g_global = 9.81
+  B = Array{Point_pga_out}(undef,0)
+  for i in A
+    pga_g = 10^((i.ssi - beta)/alpha)/g_global
+    pga_g = round(pga_g, digits=2)
+    push!(B, Point_pga_out(i.lon, i.lat, pga_g))
+  end
+  return B
+end
+
+"""
 read VS30 file
 
 IN: dlm VS30 file LON LAT VS30 DL
@@ -72,6 +112,15 @@ function convert_to_float_array(B::Array{Point_pga_out})
    A[i,1] = B[i].lon
    A[i,2] = B[i].lat
    A[i,3] = B[i].pga
+  end
+  return A
+end
+function convert_to_float_array(B::Array{Point_ssi_out})
+  A = Array{Float64}(undef,length(B),3)
+  for i=1:length(B)
+   A[i,1] = B[i].lon
+   A[i,2] = B[i].lat
+   A[i,3] = B[i].ssi
   end
   return A
 end

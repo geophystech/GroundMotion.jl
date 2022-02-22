@@ -25,6 +25,7 @@ module GroundMotion
     # types
     Point_vs30,
     Point_pga_out,
+    Point_ssi_out,
     Earthquake,
     Params_as2008,
     Params_simidorikawa1999,
@@ -32,6 +33,8 @@ module GroundMotion
     # functions
     read_vs30_file,
     convert_to_point_vs30,
+    convert_from_pga_to_ssi,
+    convert_from_ssi_to_pga,
     read_vs30_dl_file,
     convert_to_float_array,
     gmpe_as2008,

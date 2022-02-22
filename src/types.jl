@@ -15,7 +15,7 @@
 
 ## initial release by Andrey Stepnov, email: a.stepnov@geophsytech.ru
 
-## VS30 data point
+
 """
 Mutable type for fill vs30 grid (Array).
 
@@ -28,6 +28,7 @@ mutable struct Point_vs30
   lat::Float64
   vs30::Float64
 end
+
 """
 Mutable type for fill vs30 grid (Array) with `Dl` data. `Dl` is the top depth to the layer whose S-wave velocity is `l` (in `[m/s]`) at the site. See Morikawa Fujiwara 2013 for further reading.
 
@@ -41,9 +42,9 @@ mutable struct Point_vs30_dl
   vs30::Float64
   dl::Float64
 end
-## Output PGA data point
+
 """
-Mutable type for output PGA data from GMPE modeling funtions
+Mutable type for output PGA data from GMPE modeling functions
 
   Fields:
 ```
@@ -58,9 +59,9 @@ mutable struct Point_pga_out
   lat::Float64
   pga::Float64 #Acceleration of gravity  in percent (%g) rounded to ggg.gg
 end
-## Output PGV data point
+
 """
-Mutable type for output PGV data from GMPE modeling funtions
+Mutable type for output PGV data from GMPE modeling functions
 
   Fields:
 ```
@@ -75,7 +76,7 @@ mutable struct Point_pgv_out
   lat::Float64
   pgv::Float64 #Acceleration of gravity in percent rounded to ggg.gg
 end
-## Output PSA data point
+
 """
 Mutable type for output PSA data
 
@@ -92,7 +93,25 @@ mutable struct Point_psa_out
   lat::Float64
   psa::Float64 # damped pseudo-spectral acceleration of gravity in percent rounded to ggg.gg (%g)
 end
-## earthquake location data
+
+"""
+Mutable type for output INTENSITY data from GMPE modeling functions. The INTENSITY is Seismic Scale according to Russian GOSTR 57546-2017. It can be easily converted from PGA, see `convert_from_pga_to_ssi` functiuon.
+
+  Fields:
+```
+  lon   :: Float64 
+  lat   :: Float64 
+  ssi   :: Float64 
+```
+Latitude and longitude assumes degrees for WGS84 ellipsoid. `ssi` is intensity measure from 1.00 to 12.00.
+"""
+mutable struct Point_ssi_out
+  lon::Float64
+  lat::Float64
+  ssi::Float64 # ssi intensity
+end
+
+
 """
 Mutable type for earthquake location data.
 
@@ -110,7 +129,10 @@ mutable struct Earthquake
   moment_mag::Float64
 end
 Earthquake(x,y,z,k) = Earthquake(x,y,z,k,0) # Mw usually not ready right after earthquake 
-## AS2008 GMPE parameters
+
+"""
+AS2008 GMPE parameters
+"""
 mutable struct Params_as2008
   a1::Float64
   a2::Float64
@@ -130,7 +152,10 @@ mutable struct Params_as2008
   vs30_1100::Float64
   ground_motion_type::String
 end
-## Si-Midorikawa 1999 GMPE parameters
+
+"""
+Si-Midorikawa 1999 GMPE parameters
+"""
 mutable struct Params_simidorikawa1999
   a::Float64
   h::Float64
@@ -144,7 +169,10 @@ mutable struct Params_simidorikawa1999
   S3::Float64
   ground_motion_type::String
 end
-## Morikawa-Fujiwara 2013 GMPE parameters
+
+"""
+Morikawa-Fujiwara 2013 GMPE parameters
+"""
 mutable struct Params_mf2013
   Mw0::Float64
   a::Float64

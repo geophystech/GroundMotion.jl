@@ -22,4 +22,16 @@
   @test typeof(A) == Array{Float64,2}
   @test length(A) == 51
   @test round(sum(A[:,3]),digits=2) == 4.39
+  # test pga to ssi convert
+  # add zero pga intensity
+  push!(pga_grid,Point_pga_out(140.0,53.0,0.00)) 
+  # add negative SSI intensity
+  push!(pga_grid,Point_pga_out(140.1,53.1,0.01))
+  B = convert_from_pga_to_ssi(pga_grid)
+  C = convert_to_float_array(B)
+  @test round(sum(C[:,3]),digits=2) == 47.45
+  # test ssi to pga convert
+  B = convert_from_ssi_to_pga(B)
+  B = convert_to_float_array(B)
+  @test round(sum(B[:,3]),digits=2) == 4.39
 end
