@@ -30,6 +30,7 @@ module GroundMotion
     Params_as2008,
     Params_simidorikawa1999,
     Params_mf2013,
+    Params_gmpe_corr,
     # functions
     read_vs30_file,
     convert_to_point_vs30,

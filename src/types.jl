@@ -192,3 +192,25 @@ mutable struct Params_mf2013
   ground_motion_type::String
 end
 
+"""
+Parameters for a correction procedure of GMPE magnitute-distance modelling by using felt reports and station measures
+"""
+mutable struct Params_gmpe_corr
+  M_max::Float64
+  a::Float64
+  b::Float64
+  c::Float64
+  k::Float64
+  e::Float64
+  p::Float64
+  V_0::Float64
+  V_s_max::Float64
+  alpha::Float64
+  beta::Float64
+  sigma_gmpe::Float64
+  sigma_obs_station::Float64
+  sigma_obs_felt_report::Float64
+  h_0::Float64
+  h_max::Float64
+  sigma_max::Float64
+end
