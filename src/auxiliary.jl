@@ -84,6 +84,25 @@ function convert_from_pga_to_ssi(A::Array{Point_pga_out}; alpha=2.5, beta=1.89):
   end
   return B
 end
+function convert_from_pga_to_ssi(A::Array{Point_felt_report}; alpha=2.5, beta=1.89)::Array{Point_felt_report}
+  g_global = 9.81
+  B = Array{Point_felt_report}(undef,0)
+  for i in A
+    # process only non-zero values
+    if i.intensity > 0
+      # convert %g to sm/sec^2
+      pga_sm = i.intensity * g_global
+      # convert to SSI
+      intensity = log10(pga_sm)*alpha + beta 
+      # filter out negative intensity
+      if intensity > 0
+        intensity = round(intensity, digits=2)
+        push!(B, Point_felt_report(i.lon, i.lat, intensity, i.is_station))
+      end
+    end
+  end
+  return B
+end
 
 """
 convert Point_ssi_out to Point_pga_out (SSI intensity to %g.gg)
@@ -95,6 +114,16 @@ function convert_from_ssi_to_pga(A::Array{Point_ssi_out}; alpha=2.5, beta=1.89):
     pga_g = 10^((i.ssi - beta)/alpha)/g_global
     pga_g = round(pga_g, digits=2)
     push!(B, Point_pga_out(i.lon, i.lat, pga_g))
+  end
+  return B
+end
+function convert_from_ssi_to_pga(A::Array{Point_felt_report}; alpha=2.5, beta=1.89)::Array{Point_felt_report}
+  g_global = 9.81
+  B = Array{Point_felt_report}(undef,0)
+  for i in A
+    pga_g = 10^((i.intensity - beta)/alpha)/g_global
+    pga_g = round(pga_g, digits=2)
+    push!(B, Point_felt_report(i.lon, i.lat, pga_g, i.is_station))
   end
   return B
 end
