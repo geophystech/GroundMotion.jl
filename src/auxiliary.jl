@@ -18,8 +18,8 @@
 """
 read VS30 file
 
-IN: dlm VS30 file LON LAT VS30
-OUT: Point_vs30 array
+IN: dlm VS30 file `LON LAT VS30` (see `test/testvs30.txt`)
+OUT: `Point_vs30` array
 """
 function read_vs30_file(filename::String)
   A = readdlm(filename)
@@ -30,6 +30,22 @@ function read_vs30_file(filename::String)
   end
   return B
 end
+
+"""
+read intensity measures file
+IN: dlm intensity file `LON LAT INTENSITY IS_STATION` (see `test/felt_reports.txt` example)
+OUT: `Point_felt_report` array
+"""
+function read_intensity_file(filename::String)
+  A = readdlm(filename)
+  intensity_row_num = length(A[:,1])
+  B = Array{Point_felt_report}(undef,0)
+  for i=1:intensity_row_num
+    B = push!(B,Point_felt_report(A[i,1],A[i,2],A[i,3],A[i,4]))
+  end
+  return B
+end
+
 
 """
 convert Array{Float64,2} array to Array{GroundMotion.Point_vs30,1}

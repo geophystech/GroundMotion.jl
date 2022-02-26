@@ -111,6 +111,17 @@ mutable struct Point_ssi_out
   ssi::Float64 # ssi intensity
 end
 
+"""
+Intensity measure points на Intensity measure sites
+
+Intensity can be either SSI or PGA in %g
+"""
+mutable struct Point_felt_report
+  lon::Float64
+  lat::Float64
+  intensity::Float64
+  is_station::Bool
+end
 
 """
 Mutable type for earthquake location data.
@@ -214,3 +225,4 @@ mutable struct Params_gmpe_corr
   h_max::Float64
   sigma_max::Float64
 end
+

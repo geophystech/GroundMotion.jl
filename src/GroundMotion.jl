@@ -26,6 +26,7 @@ module GroundMotion
     Point_vs30,
     Point_pga_out,
     Point_ssi_out,
+    Point_felt_report,
     Earthquake,
     Params_as2008,
     Params_simidorikawa1999,
@@ -33,6 +34,7 @@ module GroundMotion
     Params_gmpe_corr,
     # functions
     read_vs30_file,
+    read_intensity_file,
     convert_to_point_vs30,
     convert_from_pga_to_ssi,
     convert_from_ssi_to_pga,
@@ -52,5 +54,7 @@ module GroundMotion
   include("morikawafujiwara2013.jl")
   # read/write functions
   include("auxiliary.jl")
+  # weighted averaging
+  include("gmpe_corr.jl")
 end
 
