@@ -42,8 +42,8 @@ module GroundMotion
     convert_to_float_array,
     gmpe_as2008,
     gmpe_simidorikawa1999,
-    gmpe_mf2013
-  
+    gmpe_mf2013,
+    gmpe_corr
   # Types
   include("types.jl")
   # AS2008 GMPE modeling
