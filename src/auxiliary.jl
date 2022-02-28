@@ -32,6 +32,22 @@ function read_vs30_file(filename::String)
 end
 
 """
+read PGA grid file
+
+IN: dlm GRID file `LON LAT PGA` (see `test/SakhGMPE.txt`)
+OUT: `Point_pga_out` array
+"""
+function read_pga_file(filename::String)
+  A = readdlm(filename)
+  row_num = length(A[:,1])
+  B = Array{Point_pga_out}(undef,0)
+  for i=1:row_num
+    B = push!(B,Point_pga_out(A[i,1],A[i,2],A[i,3]))
+  end
+  return B
+end
+
+"""
 read intensity measures file
 IN: dlm intensity file `LON LAT INTENSITY IS_STATION` (see `test/felt_reports.txt` example)
 OUT: `Point_felt_report` array

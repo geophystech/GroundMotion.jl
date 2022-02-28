@@ -35,6 +35,7 @@ module GroundMotion
     # functions
     read_vs30_file,
     read_intensity_file,
+    read_pga_file,
     convert_to_point_vs30,
     convert_from_pga_to_ssi,
     convert_from_ssi_to_pga,

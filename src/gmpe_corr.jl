@@ -54,7 +54,7 @@ function gmpe_corr(config::Params_gmpe_corr,grid::Array{Point_pga_out}, intensit
     end
     #push!(closes_points_index,(index,argmin(distances_from_point)))
     min_distance_index = argmin(distances_from_point)
-    @info("index in point $index is $min_distance_index")
+    # @info("index in point $index is $min_distance_index") # debug
     closest_point = LatLon(grid[min_distance_index].lat,grid[min_distance_index].lon)
     closest_intensity = grid[min_distance_index].ssi
     push!(closes_points_index,(index,closest_point,closest_intensity,distances_from_point))
@@ -66,7 +66,7 @@ function gmpe_corr(config::Params_gmpe_corr,grid::Array{Point_pga_out}, intensit
   SIGMA_numerator = fill(0, len_grid)
   # Iterate over each felt report and compute correlation
   for (index_i, i) in enumerate(intensity_measures)
-    @info("MIN VALUE $(minimum(closes_points_index[index_i][4]))")
+    # @info("MIN VALUE $(minimum(closes_points_index[index_i][4]))") # debug
     # Initialize correlation with default value
     SIGMA_corr = fill(config.sigma_max,len_grid)
     # Set correlation by condition for distances from current felt report point
@@ -76,10 +76,10 @@ function gmpe_corr(config::Params_gmpe_corr,grid::Array{Point_pga_out}, intensit
       end
     end
     if i.is_station
-      @info("station detected")
+      # @info("station detected") # debug
       SIGMA_corr = SIGMA_corr .+ config.sigma_obs_station
     else
-      @info("felt report detected")
+      # @info("felt report detected") # debug
       SIGMA_corr = SIGMA_corr .+ config.sigma_obs_felt_report
     end
     # Calculate the term on the right in the denominator

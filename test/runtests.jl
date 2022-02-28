@@ -26,3 +26,6 @@ include("test_simidorikawa1999.jl")
 
 ## Morikawa-Fujiwara 2013 GMPE tests
 include("test_morikawafujiwara2013.jl")
+
+## weighted averaging tests
+include("test_gmpe_corr.jl")
