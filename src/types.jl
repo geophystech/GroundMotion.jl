@@ -1,27 +1,10 @@
-## LICENSE
-##   Copyright (c) 2018 GEOPHYSTECH LLC
-##
-##   Licensed under the Apache License, Version 2.0 (the "License");
-##   you may not use this file except in compliance with the License.
-##   You may obtain a copy of the License at
-##
-##       http://www.apache.org/licenses/LICENSE-2.0
-##
-##   Unless required by applicable law or agreed to in writing, software
-##   distributed under the License is distributed on an "AS IS" BASIS,
-##   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-##   See the License for the specific language governing permissions and
-##   limitations under the License.
-
-## initial release by Andrey Stepnov, email: a.stepnov@geophsytech.ru
-
-
 """
 Mutable type for fill vs30 grid (Array).
 
-  `Point_vs30(lon,lat,vs30)`
+`Point_vs30(lon,lat,vs30)`
 
-Latitude and longitude assumes degrees for WGS84 ellipsoid. `vs30` in meters per second. All fields are ::Float64.
+Latitude and longitude assumes degrees for WGS84 ellipsoid. `vs30` in meters
+per second. All fields are ::Float64.
 """
 mutable struct Point_vs30
   lon::Float64
@@ -30,11 +13,14 @@ mutable struct Point_vs30
 end
 
 """
-Mutable type for fill vs30 grid (Array) with `Dl` data. `Dl` is the top depth to the layer whose S-wave velocity is `l` (in `[m/s]`) at the site. See Morikawa Fujiwara 2013 for further reading.
+Mutable type for fill vs30 grid (Array) with `Dl` data. `Dl` is the top depth
+to the layer whose S-wave velocity is `l` (in `[m/s]`) at the site. See
+Morikawa Fujiwara 2013 for further reading.
 
-  `Point_vs30(lon,lat,vs30,dl)`
+`Point_vs30(lon,lat,vs30,dl)`
 
-Latitude and longitude assumes degrees for WGS84 ellipsoid. `vs30` in meters per second. `dl` in kilometers. All fields are ::Float64.
+Latitude and longitude assumes degrees for WGS84 ellipsoid. `vs30` in meters
+per second. `dl` in kilometers. All fields are ::Float64.
 """
 mutable struct Point_vs30_dl
   lon::Float64
@@ -46,13 +32,16 @@ end
 """
 Mutable type for output PGA data from GMPE modeling functions
 
-  Fields:
+Fields:
+
 ```
   lon   :: Float64 
   lat   :: Float64 
   pga   :: Float64 
 ```
-Latitude and longitude assumes degrees for WGS84 ellipsoid. `pga` is Acceleration of gravity in percent (%g) rounded to ggg.gg.
+
+Latitude and longitude assumes degrees for WGS84 ellipsoid. `pga` is
+Acceleration of gravity in percent (%g) rounded to ggg.gg.
 """
 mutable struct Point_pga_out
   lon::Float64
@@ -63,12 +52,14 @@ end
 """
 Mutable type for output PGV data from GMPE modeling functions
 
-  Fields:
+Fields:
+
 ```
   lon   :: Float64 
   lat   :: Float64 
   pgv   :: Float64 
 ```
+
 Latitude and longitude assumes degrees for WGS84 ellipsoid. `pgv` is [cm/s].
 """
 mutable struct Point_pgv_out
@@ -80,13 +71,16 @@ end
 """
 Mutable type for output PSA data
 
-  Fields:
+Fields:
+
 ```
   lon   :: Float64 
   lat   :: Float64 
   psa   :: Float64 
 ```
-Latitude and longitude assumes degrees for WGS84 ellipsoid. `psa` is damped pseudo-spectral acceleration (%g) in percent rounded to ggg.gg.
+
+Latitude and longitude assumes degrees for WGS84 ellipsoid. `psa` is damped
+pseudo-spectral acceleration (%g) in percent rounded to ggg.gg.
 """
 mutable struct Point_psa_out
   lon::Float64
@@ -95,15 +89,20 @@ mutable struct Point_psa_out
 end
 
 """
-Mutable type for output INTENSITY data from GMPE modeling functions. The INTENSITY is Seismic Scale according to Russian GOSTR 57546-2017. It can be easily converted from PGA, see `convert_from_pga_to_ssi` functiuon.
+Mutable type for output INTENSITY data from GMPE modeling functions. The
+INTENSITY is Seismic Scale according to Russian GOSTR 57546-2017. It can be
+easily converted from PGA, see `convert_from_pga_to_ssi` functiuon.
 
-  Fields:
+Fields:
+
 ```
   lon   :: Float64 
   lat   :: Float64 
   ssi   :: Float64 
 ```
-Latitude and longitude assumes degrees for WGS84 ellipsoid. `ssi` is intensity measure from 1.00 to 12.00.
+
+Latitude and longitude assumes degrees for WGS84 ellipsoid. `ssi` is intensity
+measure from 1.00 to 12.00.
 """
 mutable struct Point_ssi_out
   lon::Float64
@@ -126,7 +125,9 @@ end
 """
 Mutable type for earthquake location data.
 
-  Earthquake(lat,lon,depth,local_mag,moment_mag)
+```
+Earthquake(lat,lon,depth,local_mag,moment_mag)
+```
 
 Latitude and longitude assumes degrees for WGS84 ellipsoid. Depth in km.
 Mw=0 in case of moment magnitude is not specified. 
@@ -204,7 +205,8 @@ mutable struct Params_mf2013
 end
 
 """
-Parameters for a correction procedure of GMPE magnitute-distance modelling by using felt reports and station measures
+Parameters for a correction procedure of GMPE magnitute-distance modelling by
+using felt reports and station measures
 """
 mutable struct Params_gmpe_corr
   M_max::Float64
@@ -225,4 +227,3 @@ mutable struct Params_gmpe_corr
   h_max::Float64
   sigma_max::Float64
 end
-

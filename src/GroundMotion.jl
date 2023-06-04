@@ -1,61 +1,21 @@
-## LICENSE
-##   Copyright (c) 2018-2022 GEOPHYSTECH LLC
-##
-##   Licensed under the Apache License, Version 2.0 (the "License");
-##   you may not use this file except in compliance with the License.
-##   You may obtain a copy of the License at
-##
-##       http://www.apache.org/licenses/LICENSE-2.0
-##
-##   Unless required by applicable law or agreed to in writing, software
-##   distributed under the License is distributed on an "AS IS" BASIS,
-##   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-##   See the License for the specific language governing permissions and
-##   limitations under the License.
-##
-## initial release by Andrey Stepnov, email: a.stepnov@geophsytech.ru
 module GroundMotion
-  # This source contains a module settings. Please find types and functions in nested source files (see include).
-  # The euclidean_distance() function is used, see https://github.com/JuliaGeo/Geodesy.jl for further read
-  using 
+
+using
     DelimitedFiles,
     Geodesy
 
-  export
-    # types
-    Point_vs30,
-    Point_pga_out,
-    Point_ssi_out,
-    Point_felt_report,
-    Earthquake,
-    Params_as2008,
-    Params_simidorikawa1999,
-    Params_mf2013,
-    Params_gmpe_corr,
-    # functions
-    read_vs30_file,
-    read_intensity_file,
-    read_pga_file,
-    convert_to_point_vs30,
-    convert_from_pga_to_ssi,
-    convert_from_ssi_to_pga,
-    read_vs30_dl_file,
-    convert_to_float_array,
-    gmpe_as2008,
-    gmpe_simidorikawa1999,
-    gmpe_mf2013,
-    gmpe_corr
-  # Types
-  include("types.jl")
-  # AS2008 GMPE modeling
-  include("as2008.jl")
-  # Si-Midorikawa 1999 GMPE modeling
-  include("simidorikawa1999.jl")
-  # Morikawa-Fujiwara 2013 GMPE modeling
-  include("morikawafujiwara2013.jl")
-  # read/write functions
-  include("auxiliary.jl")
-  # weighted averaging
-  include("gmpe_corr.jl")
+export Point_vs30, Point_pga_out, Point_ssi_out, Point_felt_report, Earthquake,
+    Params_as2008, Params_simidorikawa1999, Params_mf2013, Params_gmpe_corr,
+    read_vs30_file, read_intensity_file, read_pga_file,
+    convert_to_point_vs30, convert_from_pga_to_ssi, convert_from_ssi_to_pga,
+    read_vs30_dl_file, convert_to_float_array, gmpe_as2008,
+    gmpe_simidorikawa1999, gmpe_mf2013, gmpe_corr
+
+include("types.jl")
+include("as2008.jl")
+include("simidorikawa1999.jl")
+include("morikawafujiwara2013.jl")
+include("auxiliary.jl")
+include("gmpe_corr.jl")
 end
 
