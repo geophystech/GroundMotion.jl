@@ -28,14 +28,12 @@ function gmpe_corr(
     # convert intensity from PGA to SSI for the GMPE field
     grid = convert_from_pga_to_ssi(grid, alpha=config.alpha, beta=config.beta)
 
-    """
-    ! Find closest points to intensity measures on grid !
-    Tuple for 
-    [1] felt report index
-    [2] closest point on grid
-    [3] GMPE value at that point
-    [4] distances from grid points to felt report point
-    """
+    # ! Find closest points to intensity measures on grid !
+    # Tuple for 
+    # [1] felt report index
+    # [2] closest point on grid
+    # [3] GMPE value at that point
+    # [4] distances from grid points to felt report point
     closes_points_index = Array{
         Tuple{Int,LatLon,Float64,Array{Float64}}
     }(undef, 0)
