@@ -1,7 +1,6 @@
 # GroundMotion.jl
 <!-- vim-markdown-toc GFM -->
 
-* [Build Status](#build-status)
 * [Install](#install)
 * [Abbreviations](#abbreviations)
 * [Basic Principles of Ground Motion Assessment](#basic-principles-of-ground-motion-assessment)
@@ -25,7 +24,7 @@
 
 The ground motion evaluation module (earthquake seismology).
 
-## Build Status
+Build Status
 
 ![CI](https://github.com/geophystech/GroundMotion.jl/actions/workflows/ci.yml/badge.svg)
 [![codecov](https://codecov.io/gh/geophystech/GroundMotion.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/geophystech/GroundMotion.jl)
