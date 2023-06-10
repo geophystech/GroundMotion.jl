@@ -280,6 +280,7 @@ gmpe_as2008(
 )
 
 ```
+
 Keyword arguments: `min_val`,`VS30`,`distance`.
 
 For model Parameters see `examples/as2008.conf` (`PGA` only).
@@ -289,7 +290,7 @@ For model Parameters see `examples/as2008.conf` (`PGA` only).
 `a12*Frv`, `a13*Fnm`, `a15*Fas`, `Fhw*f4(Rjb,Rrup,Rx,W,S,Ztor,Mw)`, `f6(Ztor)`,
 `f10(Z1.0, Vs30)`.
 
-Actually they are not presented at code. **R_rup** - is a distance to
+Actually they are not presented at code. **R_rup** is a distance to
 hypocenter.
 
 ### Si and Midorikawa 1999 GMPE Model (simidorikawa1999)
@@ -327,7 +328,7 @@ gmpe_simidorikawa1999(
 Keyword arguments: `min_val`,`VS30`,`distance`.
 
 For model parameters see `examples/si-midorikawa-1999.conf` (`PGA` only). **X**
-- is a distance to hypocenter.
+is a distance to hypocenter.
 
 ### Morikawa and Fujiwara 2013 GMPE Model (gmpe_mf2013)
 
@@ -374,7 +375,7 @@ NOTE that `gmpe_mf2013` has next keyword arguments: `min_val`, `min_val`, `Dl`,
 `gmpe_mf2013(eq,config,VS30=500,Xvf=40)`.
 
 For model parameters see `examples/morikawa-fujiwara-2013.conf` (`PGA`, `PGV`,
-`PSA`). **X** - is a distance to hypocenter.
+`PSA`). **X** is a distance to hypocenter.
 
 #### About Dl variable
 
