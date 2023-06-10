@@ -423,8 +423,7 @@ on each grid point (`Point_vs30_dl` type). If you pass grid without `Dl`, then
 
 ## LICENSE
 
-   Copyright (c) 2018-2023 GEOPHYSTECH LLC
-   Copyright (c) 2018-2023 Andrey Stepnov
+   Copyright (c) 2018-2023 GEOPHYSTECH LLC and Andrey Stepnov
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
