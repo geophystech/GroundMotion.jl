@@ -1,5 +1,5 @@
 name = "GroundMotion"
-uuid = "787fd7a8-e7e3-4b59-bc4b-43f0e4bfbf20"
+uuid = "1a1bcaad-b889-5540-93fc-02c6735e0f5a"
 license = "Apache License 2.0"
 authors = ["Andrey Stepnov <a.stepnov@geophystech.ru>"]
 version = "0.4.0"
