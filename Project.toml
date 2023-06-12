@@ -2,7 +2,7 @@ name = "GroundMotion"
 uuid = "1a1bcaad-b889-5540-93fc-02c6735e0f5a"
 license = "Apache License 2.0"
 authors = ["Andrey Stepnov <a.stepnov@geophystech.ru>"]
-version = "0.4.2"
+version = "0.4.0"
 
 [deps]
 DelimitedFiles = "8bb1440f-4735-579b-a4ab-409b98df4dab"
