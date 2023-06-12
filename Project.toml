@@ -12,4 +12,4 @@ Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 [compat]
 julia = "1.6"
 Geodesy = "1.1.0"
-DelimitedFiles = "1.9.1"
+DelimitedFiles = "1.6, 1.7, 1.8, 1.9"
