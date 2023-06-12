@@ -1,9 +1,5 @@
 The GroundMotion.jl package is licensed under the Apache License, Version 2.0:
 
-> Copyright (c) 2018-2022:
->  * GEOPHYSTECH LLC
->  * Andrey Stepnov
->
 >                                  Apache License
 >                            Version 2.0, January 2004
 >                         http://www.apache.org/licenses/
@@ -192,7 +188,7 @@ The GroundMotion.jl package is licensed under the Apache License, Version 2.0:
 >       same "printed page" as the copyright notice for easier
 >       identification within third-party archives.
 >
->    Copyright 2018 GEOPHYSTECH LLC
+>    Copyright 2018-2023 GEOPHYSTECH LLC, Andrey Stepnov
 >
 >    Licensed under the Apache License, Version 2.0 (the "License");
 >    you may not use this file except in compliance with the License.
